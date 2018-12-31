@@ -13,14 +13,14 @@
     <children>
         <AnchorPane fx:id="customerRow" styleClass="customer-row-layout" stylesheets="@../../../css/admin/dashboard/customers/customer_row.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_LEFT" layoutX="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox alignment="CENTER_LEFT" layoutX="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <ImageView fx:id="imgPhoto" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../icons/man.png" />
                             </image>
                         </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="213.0">
+                        <VBox alignment="CENTER_LEFT" prefWidth="213.0">
                             <HBox.margin>
                                 <Insets left="5.0" />
                             </HBox.margin>

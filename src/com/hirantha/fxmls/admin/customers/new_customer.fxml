@@ -206,7 +206,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </AnchorPane>
-        <Label fx:id="btnCancel" alignment="CENTER" layoutX="25.0" layoutY="21.0" prefWidth="145.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Go Back">
+        <Label fx:id="btnCancel" alignment="CENTER" layoutX="25.0" layoutY="20.0" prefWidth="145.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Go Back">
             <styleClass>
                 <String fx:value="cancel" />
                 <String fx:value="new-customer-buttons" />

@@ -7,10 +7,10 @@
 }
 
 .item-buttons {
-    -fx-pref-width: 120px;
-    -fx-pref-height: 38px;
+    -fx-pref-width: 90px;
+    -fx-pref-height: 30px;
     -fx-font-family: "Noto Mono";
-    -fx-font-size: 15px;
+    -fx-font-size: 11px;
 }
 
 .new-item {

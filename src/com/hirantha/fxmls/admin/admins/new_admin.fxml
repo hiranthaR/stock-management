@@ -14,215 +14,211 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="840.0" prefWidth="1357.0" style="-fx-background-color: #cecece;"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.hirantha.controllers.admin.admins.NewAdminController">
+<AnchorPane prefHeight="675.0" prefWidth="850.0" style="-fx-background-color: #cecece;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hirantha.controllers.admin.admins.NewAdminController">
     <children>
-        <AnchorPane layoutX="379.0" layoutY="60.0" prefHeight="720.0" prefWidth="600.0">
+        <AnchorPane layoutX="125.0" layoutY="58.0" prefHeight="580.0" prefWidth="600.0">
             <children>
-                <AnchorPane styleClass="customer-profile-layout"
-                            stylesheets="@../../../css/admin/dashboard/customers/customer_profile.css"
-                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="0.0">
+                <AnchorPane styleClass="customer-profile-layout" stylesheets="@../../../css/admin/dashboard/customers/customer_profile.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0"
-                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <ImageView fx:id="imgProfilePhoto" fitHeight="200.0" fitWidth="200.0"
-                                           pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="imgProfilePhoto" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" top="20.0"/>
+                                        <Insets bottom="10.0" top="20.0" />
                                     </VBox.margin>
                                     <image>
-                                        <Image url="@../../../icons/man.png"/>
+                                        <Image url="@../../../icons/man.png" />
                                     </image>
                                 </ImageView>
                                 <AnchorPane prefHeight="1.0" style="-fx-background-color: #cecece;">
                                     <VBox.margin>
-                                        <Insets bottom="20.0" left="20.0" right="20.0"/>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" />
                                     </VBox.margin>
                                 </AnchorPane>
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
-                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../icons/id-card.png"/>
+                                                <Image url="@../../../icons/id-card.png" />
                                             </image>
                                             <HBox.margin>
-                                                <Insets left="30.0"/>
+                                                <Insets left="30.0" />
                                             </HBox.margin>
                                         </ImageView>
                                         <Label prefWidth="120.0" text="Name" textFill="#6b6b6b">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                             <font>
-                                                <Font name="Lato Regular" size="17.0"/>
+                                                <Font name="Lato Regular" size="15.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="txtName" prefHeight="26.0" prefWidth="300.0"/>
+                                        <TextField fx:id="txtName" prefHeight="26.0" prefWidth="300.0">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></TextField>
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                     <VBox.margin>
-                                        <Insets top="5.0"/>
+                                        <Insets top="5.0" />
                                     </VBox.margin>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
-                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../icons/user.png"/>
+                                                <Image url="@../../../icons/user.png" />
                                             </image>
                                             <HBox.margin>
-                                                <Insets left="30.0"/>
+                                                <Insets left="30.0" />
                                             </HBox.margin>
                                         </ImageView>
                                         <Label prefWidth="120.0" text="Username" textFill="#6b6b6b">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                             <font>
-                                                <Font name="Lato Regular" size="17.0"/>
+                                                <Font name="Lato Regular" size="15.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="txtUsername" prefHeight="26.0" prefWidth="300.0"/>
+                                        <TextField fx:id="txtUsername" prefHeight="26.0" prefWidth="300.0">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></TextField>
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
-                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../icons/employees.png"/>
+                                                <Image url="@../../../icons/employees.png" />
                                             </image>
                                             <HBox.margin>
-                                                <Insets left="30.0"/>
+                                                <Insets left="30.0" />
                                             </HBox.margin>
                                         </ImageView>
                                         <Label prefWidth="120.0" text="Role" textFill="#6b6b6b">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                             <font>
-                                                <Font name="Lato Regular" size="17.0"/>
+                                                <Font name="Lato Regular" size="15.0" />
                                             </font>
                                         </Label>
-                                        <ComboBox fx:id="cmbRole" prefWidth="300.0"/>
+                                        <ComboBox fx:id="cmbRole" prefWidth="300.0" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
-                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../icons/shield.png"/>
+                                                <Image url="@../../../icons/shield.png" />
                                             </image>
                                             <HBox.margin>
-                                                <Insets left="30.0"/>
+                                                <Insets left="30.0" />
                                             </HBox.margin>
                                         </ImageView>
                                         <Label text="Administration Permissions" textFill="#6b6b6b">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                             <font>
-                                                <Font name="Lato Regular" size="17.0"/>
+                                                <Font name="Lato Regular" size="15.0" />
                                             </font>
                                         </Label>
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                     <VBox.margin>
-                                        <Insets top="5.0"/>
+                                        <Insets top="5.0" />
                                     </VBox.margin>
                                 </HBox>
                                 <HBox alignment="CENTER">
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                     <children>
                                         <CheckBox fx:id="chkCustomer" mnemonicParsing="false" text="Customers">
                                             <HBox.margin>
-                                                <Insets right="50.0"/>
+                                                <Insets right="50.0" />
                                             </HBox.margin>
                                         </CheckBox>
                                         <CheckBox fx:id="chkItems" mnemonicParsing="false" text="Items">
                                             <HBox.margin>
-                                                <Insets left="50.0"/>
+                                                <Insets left="50.0" />
                                             </HBox.margin>
                                         </CheckBox>
                                     </children>
                                     <VBox.margin>
-                                        <Insets bottom="5.0"/>
+                                        <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
-                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../icons/key.png"/>
+                                                <Image url="@../../../icons/key.png" />
                                             </image>
                                             <HBox.margin>
-                                                <Insets left="30.0"/>
+                                                <Insets left="30.0" />
                                             </HBox.margin>
                                         </ImageView>
                                         <Label prefWidth="120.0" text="Password" textFill="#6b6b6b">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                             <font>
-                                                <Font name="Lato Regular" size="17.0"/>
+                                                <Font name="Lato Regular" size="15.0" />
                                             </font>
                                         </Label>
-                                        <PasswordField fx:id="txtPassword" prefWidth="300.0"/>
+                                        <PasswordField fx:id="txtPassword" prefWidth="300.0">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></PasswordField>
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
                                         <Label prefWidth="120.0" text="Password again" textFill="#6b6b6b">
                                             <HBox.margin>
-                                                <Insets left="75.0"/>
+                                                <Insets left="59.0" />
                                             </HBox.margin>
                                             <font>
-                                                <Font name="Lato Regular" size="17.0"/>
+                                                <Font name="Lato Regular" size="15.0" />
                                             </font>
                                         </Label>
-                                        <PasswordField fx:id="txtConfirmPassword" prefWidth="300.0"/>
+                                        <PasswordField fx:id="txtConfirmPassword" prefWidth="300.0">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></PasswordField>
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
                                     </padding>
                                 </HBox>
-                                <AnchorPane prefWidth="200.0">
+                                <AnchorPane prefWidth="588.0">
                                     <children>
-                                        <Label fx:id="btnSave" alignment="CENTER" layoutX="399.0" layoutY="18.0"
-                                               stylesheets="@../../../css/admin/dashboard/customers/new_customer.css"
-                                               text="Save">
+                                        <Label fx:id="btnSave" alignment="CENTER" layoutX="414.0" layoutY="28.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Save">
                                             <styleClass>
-                                                <String fx:value="save"/>
-                                                <String fx:value="new-customer-buttons"/>
+                                                <String fx:value="save" />
+                                                <String fx:value="new-customer-buttons" />
                                             </styleClass>
                                             <graphic>
-                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
-                                                           preserveRatio="true">
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../../icons/floppy-disk.png"/>
+                                                        <Image url="@../../../icons/floppy-disk.png" />
                                                     </image>
                                                 </ImageView>
                                             </graphic>
@@ -233,24 +229,23 @@
                         </VBox>
                     </children>
                     <padding>
-                        <Insets top="30.0"/>
+                        <Insets top="30.0" />
                     </padding>
                 </AnchorPane>
             </children>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </AnchorPane>
-        <Label fx:id="btnCancel" alignment="CENTER" layoutX="31.0" layoutY="28.0" prefWidth="145.0"
-               stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Go Back">
+        <Label fx:id="btnCancel" alignment="CENTER" layoutX="25.0" layoutY="20.0" prefWidth="145.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Go Back">
             <styleClass>
-                <String fx:value="cancel"/>
-                <String fx:value="new-customer-buttons"/>
+                <String fx:value="cancel" />
+                <String fx:value="new-customer-buttons" />
             </styleClass>
             <graphic>
                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../icons/back.png"/>
+                        <Image url="@../../../icons/back.png" />
                     </image>
                 </ImageView>
             </graphic>

@@ -29,9 +29,9 @@
                         <String fx:value="viewport" />
                     </styleClass>
                 </ScrollPane>
-                <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="11.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5px;">
+                <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="11.0" prefHeight="32.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5px;">
                     <children>
-                        <Label prefHeight="31.0" prefWidth="115.0" text="Customers">
+                        <Label prefWidth="115.0" text="Customers">
                             <font>
                                 <Font name="Lato Regular" size="18.0" />
                             </font>

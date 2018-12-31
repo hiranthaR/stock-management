@@ -9,62 +9,55 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="80.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.hirantha.controllers.admin.outgoing.OutGoingInvoiceRowController">
+<AnchorPane prefHeight="50.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hirantha.controllers.admin.outgoing.OutGoingInvoiceRowController">
     <children>
-        <AnchorPane fx:id="itemRow" prefHeight="80.0" prefWidth="590.0" styleClass="item-row-layout"
-                    stylesheets="@../../../css/admin/dashboard/items/item_row.css" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="itemRow" prefWidth="295.0" styleClass="item-row-layout" stylesheets="@../../../css/admin/dashboard/items/item_row.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_LEFT" prefWidth="590.0" AnchorPane.bottomAnchor="0.0"
-                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ImageView fx:id="imgPhoto" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView fx:id="imgPhoto" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../icons/bill.png"/>
+                                <Image url="@../../../icons/bill.png" />
                             </image>
                         </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="382.0">
-                            <HBox.margin>
-                                <Insets left="10.0"/>
-                            </HBox.margin>
-                            <children>
-                                <Label fx:id="tvInvoiceTitle" text="himesh anjula @ 2018-05-21 ">
-                                    <font>
-                                        <Font size="22.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="tvInvoiceNo" text="12211415e" textFill="#7c7c7c">
-                                    <font>
-                                        <Font size="14.0"/>
-                                    </font>
-                                    <VBox.margin>
-                                        <Insets left="5.0"/>
-                                    </VBox.margin>
-                                </Label>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="78.0" prefWidth="121.0">
-                            <children>
-                                <Label fx:id="tvAdmin" text="0000"/>
-                                <Label fx:id="tvTotalPrice" text="0000">
-                                    <VBox.margin>
-                                        <Insets top="10.0"/>
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="System Bold" size="14.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </VBox>
+                  <VBox prefWidth="255.0">
+                     <children>
+                        <HBox prefHeight="24.0">
+                           <children>
+                                      <Label fx:id="tvInvoiceTitle" prefHeight="39.0" prefWidth="208.0" text="himesh anjula @ 2018-05-21 ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                      </Label>
+                                      <Label fx:id="tvAdmin" prefHeight="22.0" prefWidth="45.0" text="0000">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="24.0">
+                           <children>
+                                      <Label fx:id="tvInvoiceNo" prefWidth="173.0" text="12211415e" textFill="#7c7c7c">
+                                          <font>
+                                              <Font size="10.0" />
+                                          </font>
+                                      </Label>
+                                      <Label fx:id="tvTotalPrice" prefWidth="81.0" text="0000">
+                                          <font>
+                                              <Font name="System Bold" size="10.0" />
+                                          </font>
+                                      </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </VBox>
                     </children>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="5.0" />
                     </padding>
                 </HBox>
             </children>

@@ -41,7 +41,7 @@
         <AnchorPane fx:id="itemContainer" layoutX="365.0" layoutY="65.0" prefHeight="580.0" prefWidth="465.0" />
         <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="11.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5px;">
             <children>
-                <Label prefHeight="31.0" prefWidth="115.0" text="Items">
+                <Label prefWidth="115.0" text="Items">
                     <font>
                         <Font name="Lato Regular" size="18.0" />
                     </font>

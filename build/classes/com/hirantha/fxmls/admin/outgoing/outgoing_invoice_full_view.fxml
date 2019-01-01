@@ -19,7 +19,7 @@
             <children>
                 <VBox alignment="TOP_CENTER" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="1500.0" stylesheets="@../../../css/admin/dashboard/customers/customers.css" vbarPolicy="NEVER">
+                        <ScrollPane hbarPolicy="NEVER" stylesheets="@../../../css/admin/dashboard/customers/customers.css" vbarPolicy="NEVER">
                             <styleClass>
                                 <String fx:value="scroll-pane" />
                                 <String fx:value="viewport" />

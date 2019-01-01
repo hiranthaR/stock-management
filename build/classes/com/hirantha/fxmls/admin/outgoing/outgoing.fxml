@@ -54,7 +54,7 @@
                         <Font size="11.0" />
                      </font>
                         </TextField>
-                  <ComboBox fx:id="cmbSearch" prefHeight="26.0" prefWidth="220.0" />
+                  <ComboBox fx:id="cmbSearch" prefWidth="220.0" />
                     </children>
                     <padding>
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

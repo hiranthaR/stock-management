@@ -29,21 +29,21 @@
                                     <Font size="14.0" />
                                  </font>
                                       </Label>
-                                      <Label fx:id="tvAdmin" prefHeight="22.0" prefWidth="45.0" text="0000">
+                                      <Label fx:id="tvAdmin" prefHeight="24.0" prefWidth="45.0" text="0000">
                                  <font>
-                                    <Font size="9.0" />
+                                    <Font size="10.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
                         <HBox prefHeight="24.0">
                            <children>
-                                      <Label fx:id="tvInvoiceNo" prefWidth="173.0" text="12211415e" textFill="#7c7c7c">
+                                      <Label fx:id="tvInvoiceNo" prefHeight="24.0" prefWidth="173.0" text="12211415e" textFill="#7c7c7c">
                                           <font>
                                               <Font size="10.0" />
                                           </font>
                                       </Label>
-                                      <Label fx:id="tvTotalPrice" prefWidth="81.0" text="0000">
+                                      <Label fx:id="tvTotalPrice" prefHeight="24.0" prefWidth="81.0" text="0000">
                                           <font>
                                               <Font name="System Bold" size="10.0" />
                                           </font>

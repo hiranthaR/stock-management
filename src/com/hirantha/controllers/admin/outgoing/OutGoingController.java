@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OutGoingController implements Initializable {
 
@@ -42,7 +44,6 @@ public class OutGoingController implements Initializable {
 
     @FXML
     private ComboBox<String> cmbSearch;
-
 
     @FXML
     private Label btnNewInvoice;
@@ -65,24 +66,37 @@ public class OutGoingController implements Initializable {
         cmbSearch.valueProperty().addListener((observableValue, s, t1) -> {
             txtSearch.setPromptText(t1);
             txtSearch.setText("");
+            try {
+                if (bills != null) {
+                    setRowViews(bills);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(OutGoingController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         cmbSearch.getSelectionModel().select(0);
 
         txtSearch.setOnKeyReleased(keyEvent -> {
 
             tempBill.clear();
-            for (Bill bill: bills) {
-                if (cmbSearch.valueProperty().getValue().equals("Search by customer name")){
-                    if (bill.getCustomerName().toLowerCase().contains(txtSearch.getText().toLowerCase())) tempBill.add(bill);
+            for (Bill bill : bills) {
+                if (cmbSearch.valueProperty().getValue().equals("Search by customer name")) {
+                    if (bill.getCustomerName().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
+                        tempBill.add(bill);
+                    }
                 }
 
-                if (cmbSearch.valueProperty().getValue().equals("Search by company Invoice Id")){
-                    if (bill.get_id().toLowerCase().contains(txtSearch.getText().toLowerCase())) tempBill.add(bill);
+                if (cmbSearch.valueProperty().getValue().equals("Search by company Invoice Id")) {
+                    if (bill.get_id().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
+                        tempBill.add(bill);
+                    }
                 }
             }
             try {
                 setRowViews(tempBill);
-                if (txtSearch.getText().isEmpty()) setRowViews(bills);
+                if (txtSearch.getText().isEmpty()) {
+                    setRowViews(bills);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,7 +105,9 @@ public class OutGoingController implements Initializable {
         try {
             FXMLLoader outgoingFullViewFxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Outgoing.OUTGOING_BILL_FULL_VIEW));
             outgoingFullViewPane = outgoingFullViewFxmlLoader.load();
-            if(Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(),Permissions.ROLE_ADMIN))invoiceContainer.getChildren().add(outgoingFullViewPane);
+            if (Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(), Permissions.ROLE_ADMIN)) {
+                invoiceContainer.getChildren().add(outgoingFullViewPane);
+            }
             outGoingInvoiceFullViewController = outgoingFullViewFxmlLoader.getController();
             outGoingInvoiceFullViewController.setOutGoingController(this);
 
@@ -112,7 +128,7 @@ public class OutGoingController implements Initializable {
 
     List<Bill> readRows() throws IOException {
 
-        bills = Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(),Permissions.ROLE_ADMIN) ? OutgoingQueries.getInstance().getBills() : OutgoingQueries.getInstance().getFBills();
+        bills = Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(), Permissions.ROLE_ADMIN) ? OutgoingQueries.getInstance().getBills() : OutgoingQueries.getInstance().getFBills();
         setRowViews(bills);
 
         return bills;

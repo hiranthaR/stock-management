@@ -63,7 +63,11 @@ public class LoginController implements Initializable {
         txtPassword.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) login();
         });
-
+        
+        txtUsername.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) login();
+        });
+        
         txtUsername.setOnKeyTyped(e -> {
             if (!(Character.isAlphabetic(e.getCharacter().charAt(0)) || Character.isDigit(e.getCharacter().charAt(0))))
                 e.consume();
@@ -79,9 +83,9 @@ public class LoginController implements Initializable {
             txtUsername.requestFocus();
 
 //            temporary pass the login
-//            txtUsername.setText("admin");
-//            txtPassword.setText("admin");
-//            login();
+            txtUsername.setText("admin");
+            txtPassword.setText("admin");
+            login();
 
 
         });

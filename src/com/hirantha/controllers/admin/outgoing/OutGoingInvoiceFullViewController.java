@@ -50,6 +50,9 @@ public class OutGoingInvoiceFullViewController implements Initializable {
 
     @FXML
     private TableColumn<BillTableItem, Double> clmnDiscount;
+    
+    @FXML
+    private TableColumn<BillTableItem, Double> clmnTotal;
 
     @FXML
     private Label tvTotalCost;
@@ -100,6 +103,7 @@ public class OutGoingInvoiceFullViewController implements Initializable {
         clmnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         clmnCostPerItem.setCellValueFactory(new PropertyValueFactory<>("costPerItem"));
         clmnDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+        clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
     }
 

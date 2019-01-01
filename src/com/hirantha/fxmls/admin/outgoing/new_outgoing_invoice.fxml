@@ -464,7 +464,7 @@
                                                         <TableColumn fx:id="clmnUnit" editable="false" prefWidth="50.0" resizable="false" text="Unit" />
                                                         <TableColumn fx:id="clmnCostPerItem" editable="false" prefWidth="79.0" resizable="false" text="Item cost" />
                                                         <TableColumn fx:id="clmnDiscount" editable="false" prefWidth="62.0" resizable="false" text="Off" />
-                                          <TableColumn fx:id="clmnDiscount1" editable="false" prefWidth="98.0" resizable="false" text="Total" />
+                                          <TableColumn fx:id="clmnTotal" editable="false" prefWidth="98.0" resizable="false" text="Total" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

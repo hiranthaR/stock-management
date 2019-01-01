@@ -62,6 +62,8 @@ public class StocksController implements Initializable {
         cmbSearch.valueProperty().addListener((observableValue, s, t1) -> {
             txtSearch.setPromptText(t1);
             txtSearch.setText("");
+            table.getItems().clear();
+            table.getItems().addAll(stockItemMap.values());
         });
 
         txtSearch.setOnKeyReleased(keyEvent -> {

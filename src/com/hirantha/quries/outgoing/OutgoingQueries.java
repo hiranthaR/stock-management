@@ -249,7 +249,7 @@ public class OutgoingQueries {
                 " INNER JOIN " + AdminQueries.ADMINS_TABLE + " atp ON atp." + AdminQueries.ADMIN_ID + "=ot." + PREPARED_ADMIN_ID +
                 " INNER JOIN " + AdminQueries.ADMINS_TABLE + " ata ON ata." + AdminQueries.ADMIN_ID + "=ot." + ACCEPTED_ADMIN_ID +
                 " INNER JOIN " + AdminQueries.ADMINS_TABLE + " atc ON atc." + AdminQueries.ADMIN_ID + "=ot." + CHECKED_ADMIN_ID +
-                " INNER JOIN " + CustomerQueries.CUSTOMER_TABLE + " ct ON ct." + CUSTOMER_ID + "=ot." + CUSTOMER_ID + ";";
+                " INNER JOIN " + CustomerQueries.CUSTOMER_TABLE + " ct ON ct." + CUSTOMER_ID + "=ot." + CUSTOMER_ID + " ORDER BY ot." + OUTGOING_ID + " DESC;";
 
         ResultSet outgoingResultSet = DBConnection.executeQuery(query);
 
@@ -295,7 +295,7 @@ public class OutgoingQueries {
                 " INNER JOIN " + AdminQueries.ADMINS_TABLE + " atp ON atp." + AdminQueries.ADMIN_ID + "=ot." + PREPARED_ADMIN_ID +
                 " INNER JOIN " + AdminQueries.ADMINS_TABLE + " ata ON ata." + AdminQueries.ADMIN_ID + "=ot." + ACCEPTED_ADMIN_ID +
                 " INNER JOIN " + AdminQueries.ADMINS_TABLE + " atc ON atc." + AdminQueries.ADMIN_ID + "=ot." + CHECKED_ADMIN_ID +
-                " INNER JOIN " + CustomerQueries.CUSTOMER_TABLE + " ct ON ct." + CUSTOMER_ID + "=ot." + CUSTOMER_ID + ";";
+                " INNER JOIN " + CustomerQueries.CUSTOMER_TABLE + " ct ON ct." + CUSTOMER_ID + "=ot." + CUSTOMER_ID + " ORDER BY ot." + OUTGOING_ID + " DESC;";
 
         ResultSet outgoingResultSet = FDBConnection.executeQuery(query);
 

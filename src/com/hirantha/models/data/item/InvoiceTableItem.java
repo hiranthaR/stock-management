@@ -13,6 +13,7 @@ public class InvoiceTableItem {
     private SimpleStringProperty unit;
     private SimpleIntegerProperty quantity;
     private SimpleDoubleProperty costPerItem;
+    private SimpleDoubleProperty total;
 
     public InvoiceTableItem(String itemId, String name, String unit, int quantity, double costPerItem) {
         this.itemId = new SimpleStringProperty(itemId);
@@ -20,6 +21,7 @@ public class InvoiceTableItem {
         this.unit = new SimpleStringProperty(unit);
         this.quantity = new SimpleIntegerProperty(quantity);
         this.costPerItem = new SimpleDoubleProperty(costPerItem);
+        this.total = new SimpleDoubleProperty(costPerItem * quantity);
     }
 
     public String getItemId() {
@@ -67,11 +69,20 @@ public class InvoiceTableItem {
     }
 
     public void setQuantity(int quantity) {
+        this.total.set(this.costPerItem.get() * quantity);
         this.quantity.set(quantity);
     }
 
     public double getCostPerItem() {
         return costPerItem.get();
+    }
+    
+    public double getTotal() {
+        return total.get();
+    }
+    
+    public void setTotal() {
+        this.total.set(costPerItem.get() * quantity.get());
     }
 
     public SimpleDoubleProperty costPerItemProperty() {
@@ -80,6 +91,7 @@ public class InvoiceTableItem {
 
     public void setCostPerItem(double costPerItem) {
         this.costPerItem.set(costPerItem);
+        setTotal();
     }
 
     @Override

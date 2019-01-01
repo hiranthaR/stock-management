@@ -98,6 +98,9 @@ public class NewOutGoingInvoiceController implements Initializable {
     private TableColumn<BillTableItem, Double> clmnDiscount;
 
     @FXML
+    private TableColumn<BillTableItem, Double> clmnTotal;
+
+    @FXML
     private TextField txtBillCost;
 
     @FXML
@@ -253,6 +256,7 @@ public class NewOutGoingInvoiceController implements Initializable {
         clmnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         clmnCostPerItem.setCellValueFactory(new PropertyValueFactory<>("costPerItem"));
         clmnDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+        clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
         btnAdd.setOnMouseClicked(e -> addItemToTable());
         btnAdd.setOnKeyPressed(keyEvent -> {
@@ -456,9 +460,11 @@ public class NewOutGoingInvoiceController implements Initializable {
             BillTableItem billTableItem;
             for (int i = 0; i < table.getItems().size(); i++) {
                 BillTableItem tableItem = table.getItems().get(i);
-                if (selectedItem.getItemCode().equals(tableItem.getItemId())) {
+                if (selectedItem.getItemCode().equals(tableItem.getItemId()) && tableItem.getCostPerItem() == Double.parseDouble(txtCostPerItem.getText())) {
                     billTableItem = tableItem;
                     billTableItem.setQuantity(billTableItem.getQuantity() + Integer.parseInt(txtQuanitiy.getText()));
+                    double discount = discount(billTableItem.getCostPerItem()) * billTableItem.getQuantity();
+                    billTableItem.setDiscount(discount);
                     table.getItems().remove(i);
                     table.getItems().add(billTableItem);
                     txtBillCost.setText(String.valueOf(Double.parseDouble(txtBillCost.getText()) + billTableItem.getCostPerItem() * Integer.parseInt(txtQuanitiy.getText())));
@@ -496,12 +502,15 @@ public class NewOutGoingInvoiceController implements Initializable {
         double costPerItem = Double.parseDouble(txtCostPerItem.getText());
         boolean percentage = selectedItem.isPercentage();
         double discount = discount(costPerItem) * quantity;
+        discount = (costPerItem * quantity) - discount < 0 ? 0 : discount;
+        
 
         return new BillTableItem(itemCode, itemName, unit, quantity, costPerItem, discount, percentage);
     }
 
     private double discount(double itemCost) {
         double discount;
+        if(selectedItem == null) return 0;
         if (selectedItem.isPercentage()) {
             discount = itemCost * selectedItem.getDiscountAccoringToRank(selectedCustomer == null ? 0 : selectedCustomer.getRank()) / 100;
         } else {

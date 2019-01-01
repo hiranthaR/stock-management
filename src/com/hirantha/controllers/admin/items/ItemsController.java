@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.ComboBox;
 
 public class ItemsController implements Initializable {
 
@@ -46,11 +49,13 @@ public class ItemsController implements Initializable {
     List<Item> temp = new ArrayList<>();
 
     @FXML
+    private ComboBox<String> cmbSearch;
+
+    @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FXMLLoader itemFullViewFxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Items.ITEM_FULL_VIEW));
         FXMLLoader newItemFxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Items.NEW_ITEM_VIEW));
         try {
-
 
             itemFullViewPane = itemFullViewFxmlLoader.load();
             itemContainer.getChildren().add(itemFullViewPane);
@@ -70,14 +75,40 @@ public class ItemsController implements Initializable {
 
         btnNewItem.setOnMouseClicked(e -> showNewItemView());
 
+        cmbSearch.getItems().addAll("Search by Item name", "Search by Item Category");
+        cmbSearch.valueProperty().addListener((observableValue, s, t1) -> {
+            txtSearch.setPromptText(t1);
+            txtSearch.setText("");
+            try {
+                if (items != null) {
+                    setRowViews(items);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ItemsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        cmbSearch.getSelectionModel().select(0);
+
         txtSearch.setOnKeyReleased(keyEvent -> {
 
             temp.clear();
-            for (Item item : items)
-                if (item.getName().toLowerCase().contains(txtSearch.getText().toLowerCase())) temp.add(item);
+            for (Item item : items) {
+                if (cmbSearch.valueProperty().getValue().equals("Search by Item name")) {
+                    if (item.getName().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
+                        temp.add(item);
+                    }
+                }
+                if (cmbSearch.valueProperty().getValue().equals("Search by Item Category")) {
+                    if (item.getCategory().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
+                        temp.add(item);
+                    }
+                }
+            }
             try {
                 setRowViews(temp);
-                if (txtSearch.getText().isEmpty()) readRows();
+                if (txtSearch.getText().isEmpty()) {
+                    readRows();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

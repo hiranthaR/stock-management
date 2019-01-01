@@ -49,6 +49,9 @@ public class InvoiceFullViewController implements Initializable {
 
     @FXML
     private TableColumn<InvoiceTableItem, Integer> clmnQuantity;
+    
+    @FXML
+    private TableColumn<InvoiceTableItem, Double> clmnTotal;
 
     @FXML
     private Label tvTotalCost;
@@ -122,6 +125,7 @@ public class InvoiceFullViewController implements Initializable {
         clmnUnit.setCellValueFactory(new PropertyValueFactory<>("unit"));
         clmnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         clmnCostPerItem.setCellValueFactory(new PropertyValueFactory<>("costPerItem"));
+        clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
     }
 

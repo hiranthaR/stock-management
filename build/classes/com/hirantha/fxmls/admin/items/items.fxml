@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -56,12 +57,13 @@
                 </ImageView>
                 <TextField fx:id="txtSearch" prefWidth="150.0" promptText="Search by Item Name">
                     <HBox.margin>
-                        <Insets right="3.0" />
+                        <Insets right="5.0" />
                     </HBox.margin>
                <font>
                   <Font size="11.0" />
                </font>
                 </TextField>
+            <ComboBox fx:id="cmbSearch" prefWidth="220.0" />
             </children>
             <padding>
                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

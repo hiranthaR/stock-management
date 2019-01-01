@@ -133,10 +133,10 @@ public class NewItemController implements Initializable {
         }));
 
         cmbCategory.getEditor().textProperty().addListener((observableValue, s, t1) -> cmbCategory.getEditor().setText(WordUtils.capitalize(t1)));
-        cmbCategory.getEditor().setOnKeyTyped(e -> {
-            if (!(Character.isAlphabetic(e.getCharacter().charAt(0)) || Character.isSpaceChar(e.getCharacter().charAt(0))))
-                e.consume();
-        });
+//        cmbCategory.getEditor().setOnKeyTyped(e -> {
+//            if (!(Character.isAlphabetic(e.getCharacter().charAt(0)) || Character.isSpaceChar(e.getCharacter().charAt(0))))
+//                e.consume();
+//        });
 
         cmbUnit.getEditor().setOnKeyTyped(e -> {
             if (!(Character.isAlphabetic(e.getCharacter().charAt(0))))

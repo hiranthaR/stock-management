@@ -18,6 +18,7 @@ public class BillTableItem {
     private SimpleIntegerProperty quantity;
     private SimpleDoubleProperty costPerItem;
     private SimpleDoubleProperty discount;
+    private SimpleDoubleProperty total;
     private SimpleBooleanProperty percentage;
 
     public BillTableItem(String itemId, String name, String unit, int quantity, double costPerItem, double discount, boolean percentage) {
@@ -28,7 +29,18 @@ public class BillTableItem {
         this.costPerItem = new SimpleDoubleProperty(costPerItem);
         this.discount = new SimpleDoubleProperty(discount);
         this.percentage = new SimpleBooleanProperty(percentage);
+        this.total = new SimpleDoubleProperty(costPerItem * quantity - discount);
     }
+
+    public double getTotal() {
+        return total.get();
+    }
+
+    public void setTotal(double total) {
+        this.total.set(total);
+    }
+    
+   
 
     public String getItemId() {
         return itemId.get();
@@ -75,6 +87,7 @@ public class BillTableItem {
     }
 
     public void setQuantity(int quantity) {
+        this.total.set(this.costPerItem.get() * quantity - discount.get());
         this.quantity.set(quantity);
     }
 
@@ -99,6 +112,7 @@ public class BillTableItem {
     }
 
     public void setDiscount(double discount) {
+        this.total.set(this.costPerItem.get() * this.quantity.get() - discount);
         this.discount.set(discount);
     }
 

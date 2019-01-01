@@ -97,6 +97,9 @@ public class NewInvoiceController implements Initializable {
     private TableColumn<InvoiceTableItem, Integer> clmnQuantity;
 
     @FXML
+    private TableColumn<InvoiceTableItem, Integer> clmnTotal;
+
+    @FXML
     private TextField txtBillCost;
 
     @FXML
@@ -266,6 +269,7 @@ public class NewInvoiceController implements Initializable {
         clmnUnit.setCellValueFactory(new PropertyValueFactory<>("unit"));
         clmnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         clmnCostPerItem.setCellValueFactory(new PropertyValueFactory<>("costPerItem"));
+        clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
         btnAdd.setOnMouseClicked(e -> addItemToTable());
         btnAdd.setOnKeyPressed(keyEvent -> {
@@ -487,7 +491,7 @@ public class NewInvoiceController implements Initializable {
             InvoiceTableItem invoiceTableItem;
             for (int i = 0; i < table.getItems().size(); i++) {
                 InvoiceTableItem tableItem = table.getItems().get(i);
-                if (selectedItem.getItemCode().equals(tableItem.getItemId())) {
+                if (selectedItem.getItemCode().equals(tableItem.getItemId()) && tableItem.getCostPerItem() == Double.parseDouble(txtCostPerItem.getText())) {
                     invoiceTableItem = tableItem;
                     invoiceTableItem.setQuantity(invoiceTableItem.getQuantity() + Integer.parseInt(txtQuanitiy.getText()));
                     table.getItems().remove(i);

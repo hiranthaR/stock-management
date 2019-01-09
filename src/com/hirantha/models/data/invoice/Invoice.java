@@ -16,6 +16,7 @@ public class Invoice {
     List<InvoiceTableItem> invoiceTableItems;
     double billCost;
     boolean cash;
+    String chequeNo;
     String bank;
     String branch;
     Date chequeDate;
@@ -27,7 +28,7 @@ public class Invoice {
     String acceptedAdminName;
     String acceptedAdminId;
 
-    public Invoice(String _id, Date date, String invoiceNumber, String name, String address, List<InvoiceTableItem> invoiceTableItems, double billCost, boolean cash, String bank, String branch, Date chequeDate, double amount, String preparedAdminName, String preparedAdminId, String checkedAdminName, String checkedAdminId, String acceptedAdminName, String acceptedAdminId) {
+    public Invoice(String _id, Date date, String invoiceNumber, String name, String address, List<InvoiceTableItem> invoiceTableItems, double billCost, boolean cash,String chequeNo, String bank, String branch, Date chequeDate, double amount, String preparedAdminName, String preparedAdminId, String checkedAdminName, String checkedAdminId, String acceptedAdminName, String acceptedAdminId) {
         this._id = _id;
         this.date = date;
         this.invoiceNumber = invoiceNumber;
@@ -46,6 +47,11 @@ public class Invoice {
         this.checkedAdminId = checkedAdminId;
         this.acceptedAdminName = acceptedAdminName;
         this.acceptedAdminId = acceptedAdminId;
+        this.chequeNo = this.chequeNo;
+    }
+    
+    public Invoice(Invoice invoice){
+        this(invoice.get_id(),invoice.getDate(),invoice.getInvoiceNumber(),invoice.getName(),invoice.getAddress(),invoice.getInvoiceTableItems(),invoice.getBillCost(),invoice.isCash(),invoice.getChequeNo(),invoice.getBank(),invoice.getBranch(),invoice.getChequeDate(),invoice.getAmount(),invoice.getPreparedAdminName(),invoice.getPreparedAdminId(),invoice.getCheckedAdminName(),invoice.getCheckedAdminId(),invoice.getAcceptedAdminName(),invoice.getAcceptedAdminId());
     }
 
     public String get_id() {
@@ -104,6 +110,14 @@ public class Invoice {
 
     public double getBillCost() {
         return billCost;
+    }
+
+    public String getChequeNo() {
+        return chequeNo;
+    }
+
+    public void setChequeNo(String chequeNo) {
+        this.chequeNo = chequeNo;
     }
 
     public Invoice setBillCost(double billCost) {

@@ -1,8 +1,5 @@
 package com.hirantha.quries.invoice;
 
-import com.google.gson.Gson;
-import com.hirantha.database.Connection;
-import com.hirantha.database.meta.MetaQueries;
 import com.hirantha.models.data.invoice.Invoice;
 import com.hirantha.models.data.invoice.Supplier;
 import com.hirantha.models.data.item.InvoiceTableItem;
@@ -10,15 +7,6 @@ import com.hirantha.quries.DBConnection;
 import com.hirantha.quries.FDBConnection;
 import com.hirantha.quries.admins.AdminQueries;
 import com.hirantha.quries.items.ItemQueries;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBObject;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.Document;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,6 +55,7 @@ public class InvoiceQueries {
     private String ITEM_UNIT = "unit";
 
     private String CHEQUE_TABLE = "cheques";
+    private String CHEQUE_NO = "cheque_no";
     private String BANK = "bank";
     private String BRANCH = "branch";
     private String CHEQUE_DATE = "cheque_date";
@@ -158,6 +147,7 @@ public class InvoiceQueries {
     private void insertCheque(Invoice invoice) {
         String query = "INSERT INTO " + CHEQUE_TABLE + " VALUES ("
                 + invoice.get_id() + ","
+                + "'" + invoice.getChequeNo()+ "',"
                 + "'" + invoice.getBank() + "',"
                 + "'" + invoice.getBranch() + "',"
                 + invoice.getAmount() + ","
@@ -193,6 +183,7 @@ public class InvoiceQueries {
     private void insertFCheque(Invoice invoice) {
         String query = "INSERT INTO " + CHEQUE_TABLE + " VALUES ("
                 + invoice.get_id() + ","
+                + "'" + invoice.getChequeNo()+ "',"
                 + "'" + invoice.getBank() + "',"
                 + "'" + invoice.getBranch() + "',"
                 + invoice.getAmount() + ","
@@ -240,17 +231,20 @@ public class InvoiceQueries {
         if (!invoice.isCash()) {
             query = new StringBuilder("INSERT INTO " + CHEQUE_TABLE + "(" +
                     INVOICE_ID + "," +
+                    CHEQUE_NO + "," +
                     BANK + "," +
                     BRANCH + "," +
                     AMOUNT + "," +
                     CHEQUE_DATE +
                     ") VALUES (")
                     .append(invoice.get_id()).append(",")
+                    .append("'").append(invoice.getChequeNo()).append("',")
                     .append("'").append(invoice.getBank()).append("',")
                     .append("'").append(invoice.getBranch()).append("',")
                     .append(invoice.getAmount()).append(",")
                     .append("?) ")
                     .append("ON DUPLICATE KEY UPDATE ")
+                    .append(CHEQUE_NO).append("=VALUES(").append(CHEQUE_NO).append("),")
                     .append(BANK).append("=VALUES(").append(BANK).append("),")
                     .append(BRANCH).append("=VALUES(").append(BRANCH).append("),")
                     .append(AMOUNT).append("=VALUES(").append(AMOUNT).append("),")
@@ -325,6 +319,7 @@ public class InvoiceQueries {
         if (!invoice.isCash()) {
             query = new StringBuilder("INSERT INTO " + CHEQUE_TABLE + "(" +
                     INVOICE_ID + "," +
+                    CHEQUE_NO + "," +
                     BANK + "," +
                     BRANCH + "," +
                     AMOUNT + "," +
@@ -336,6 +331,7 @@ public class InvoiceQueries {
                     .append(invoice.getAmount()).append(",")
                     .append("?) ")
                     .append("ON DUPLICATE KEY UPDATE ")
+                    .append(CHEQUE_NO).append("=VALUES(").append(CHEQUE_NO).append("),")
                     .append(BANK).append("=VALUES(").append(BANK).append("),")
                     .append(BRANCH).append("=VALUES(").append(BRANCH).append("),")
                     .append(AMOUNT).append("=VALUES(").append(AMOUNT).append("),")
@@ -430,13 +426,14 @@ public class InvoiceQueries {
 
                     boolean cash = invoiceResultSet.getBoolean(CASH);
 
+                    String chequeNo = invoiceResultSet.getString(CHEQUE_NO);
                     String bank = invoiceResultSet.getString(BANK);
                     String branch = invoiceResultSet.getString(BRANCH);
                     double amount = invoiceResultSet.getDouble(AMOUNT);
                     Date chequeDate = invoiceResultSet.getDate(CHEQUE_DATE);
                     List<InvoiceTableItem> items = getItems(invoiceId);
 
-                    invoices.add(new Invoice(String.valueOf(invoiceId), date, supplierInvoiceNumber, supplierName, supplierAddress, items, totalBillCost, cash, bank, branch, chequeDate, amount, preparedAdminName, String.valueOf(preparedAdminId), checkedAdminName, String.valueOf(checkedAdminId), acceptedAdminName, String.valueOf(acceptedAdminId)));
+                    invoices.add(new Invoice(String.valueOf(invoiceId), date, supplierInvoiceNumber, supplierName, supplierAddress, items, totalBillCost, cash, chequeNo,bank, branch, chequeDate, amount, preparedAdminName, String.valueOf(preparedAdminId), checkedAdminName, String.valueOf(checkedAdminId), acceptedAdminName, String.valueOf(acceptedAdminId)));
 
                 }
             }
@@ -480,13 +477,14 @@ public class InvoiceQueries {
 
                     boolean cash = invoiceResultSet.getBoolean(CASH);
 
+                    String chequeNo = invoiceResultSet.getString(CHEQUE_NO);
                     String bank = invoiceResultSet.getString(BANK);
                     String branch = invoiceResultSet.getString(BRANCH);
                     double amount = invoiceResultSet.getDouble(AMOUNT);
                     Date chequeDate = invoiceResultSet.getDate(CHEQUE_DATE);
                     List<InvoiceTableItem> items = getFItems(invoiceId);
 
-                    invoices.add(new Invoice(String.valueOf(invoiceId), date, supplierInvoiceNumber, supplierName, supplierAddress, items, totalBillCost, cash, bank, branch, chequeDate, amount, preparedAdminName, String.valueOf(preparedAdminId), checkedAdminName, String.valueOf(checkedAdminId), acceptedAdminName, String.valueOf(acceptedAdminId)));
+                    invoices.add(new Invoice(String.valueOf(invoiceId), date, supplierInvoiceNumber, supplierName, supplierAddress, items, totalBillCost, cash, chequeNo ,bank, branch, chequeDate, amount, preparedAdminName, String.valueOf(preparedAdminId), checkedAdminName, String.valueOf(checkedAdminId), acceptedAdminName, String.valueOf(acceptedAdminId)));
 
                 }
             }
@@ -598,7 +596,12 @@ public class InvoiceQueries {
     }
 
     public void deleteInvoice(Invoice invoice) {
-        String query = "DELETE FROM " + INVOICES_TABLE + " WHERE " + INVOICE_ID + "=" + invoice.get_id() + ";";
+        String query = "DELETE FROM " + INVOICE_ITEMS_TABLE + " WHERE " + INVOICE_ID + "=" + invoice.get_id() + ";";
+    
+        DBConnection.executeQuery(query, false);
+        FDBConnection.executeQuery(query, false);
+    
+        query = "DELETE FROM " + INVOICES_TABLE + " WHERE " + INVOICE_ID + "=" + invoice.get_id() + ";";
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
     }

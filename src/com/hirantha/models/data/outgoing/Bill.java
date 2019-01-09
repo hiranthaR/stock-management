@@ -41,6 +41,10 @@ public class Bill {
         this.acceptedAdminId = acceptedAdminId;
         this.vehicleNumber = vehicleNumber;
     }
+    
+    public Bill(Bill bill){
+        this(bill.get_id(),bill.getDate(),bill.getCustomerId(),bill.getCustomerName(),bill.getCustomerAddress(),bill.getCustomerRank(),bill.getTableItems(),bill.getTotalBillCost(),bill.getPreparedAdminName(),bill.getPreparedAdminId(),bill.getCheckedAdminName(),bill.getCheckedAdminId(),bill.getAcceptedAdminName(),bill.getAcceptedAdminId(),bill.getVehicleNumber());
+    }
 
     public String get_id() {
         return _id;

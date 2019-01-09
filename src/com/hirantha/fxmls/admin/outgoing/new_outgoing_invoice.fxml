@@ -176,10 +176,7 @@
                                                                 <Font name="Lato Regular" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="txtRank" editable="false" prefHeight="22.0" prefWidth="100.0" text="0">
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font></TextField>
+                                          <ComboBox fx:id="cmbRank" prefHeight="26.0" prefWidth="100.0" />
                                                     </children>
                                                     <padding>
                                                         <Insets bottom="5.0" top="5.0" />

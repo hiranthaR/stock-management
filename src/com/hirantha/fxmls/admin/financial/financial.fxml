@@ -1,27 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="1000.0" prefWidth="1350.0" style="-fx-background-color: #cecece;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hirantha.controllers.admin.FinancialController">
+<AnchorPane prefHeight="675.0" prefWidth="850.0" style="-fx-background-color: #cecece;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hirantha.controllers.admin.financial.FinancialController">
    <children>
-      <TableView layoutX="694.0" layoutY="72.0" prefHeight="638.0" prefWidth="556.0">
+      <TableView fx:id="tableOut" layoutX="11.0" layoutY="104.0" prefHeight="467.0" prefWidth="407.0" stylesheets="@../../../css/admin/dashboard/tablecss.css">
          <columns>
-            <TableColumn prefWidth="106.00006103515625" text="C1" />
-            <TableColumn prefWidth="68.99996948242188" text="C2" />
-            <TableColumn prefWidth="135.0" text="Column X" />
-            <TableColumn prefWidth="174.0" text="Column X" />
+            <TableColumn fx:id="clmnOutID" prefWidth="51.0" text="ID" />
+            <TableColumn fx:id="clmnOutDate" editable="false" prefWidth="89.0" text="Date" />
+            <TableColumn fx:id="clmnOutCustomerName" minWidth="0.0" prefWidth="176.0" text="Customer&#10;Name" />
+            <TableColumn fx:id="clmnOutAmount" minWidth="0.0" prefWidth="89.0" resizable="false" text="Amount" />
          </columns>
       </TableView>
-      <TableView layoutX="87.0" layoutY="72.0" prefHeight="638.0" prefWidth="556.0">
+      <TableView fx:id="tableIn" layoutX="433.0" layoutY="104.0" prefHeight="467.0" prefWidth="407.0" stylesheets="@../../../css/admin/dashboard/tablecss.css">
          <columns>
-            <TableColumn prefWidth="106.00006103515625" text="C1" />
-            <TableColumn prefWidth="68.99996948242188" text="C2" />
-            <TableColumn prefWidth="135.0" text="Column X" />
-            <TableColumn prefWidth="174.0" text="Column X" />
+            <TableColumn fx:id="clmnInID" prefWidth="51.0" text="ID" />
+            <TableColumn fx:id="clmnInDate" prefWidth="89.0" text="Date" />
+            <TableColumn fx:id="ClmnInSupplierName" prefWidth="176.0" text="Supplier Name" />
+            <TableColumn fx:id="clmnInAmount" prefWidth="95.0" resizable="false" text="Amount" />
          </columns>
       </TableView>
+      <DatePicker fx:id="dateFrom" layoutX="59.0" layoutY="50.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" />
+      <DatePicker fx:id="dateTo" layoutX="348.0" layoutY="50.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" />
+      <Label layoutX="25.0" layoutY="53.0" text="From" />
+      <Label layoutX="182.0" layoutY="85.0" text="Out Goings">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="601.0" layoutY="85.0" text="Incomes">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="334.0" layoutY="53.0" text="to" />
+      <Label layoutX="14.0" layoutY="581.0" text="Total Amount" />
+      <Label layoutX="433.0" layoutY="581.0" text="Total Amount" />
+      <Label fx:id="lblOut" layoutX="108.0" layoutY="581.0" text="0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblIn" layoutX="529.0" layoutY="581.0" text="0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="610.0" text="Balance" />
+      <Label fx:id="lblBalance" layoutX="73.0" layoutY="609.0" text="0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

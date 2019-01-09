@@ -3,7 +3,10 @@ package com.hirantha.controllers.admin.outgoing;
 import animatefx.animation.FadeOut;
 import com.hirantha.admins.CurrentAdmin;
 import com.hirantha.admins.Permissions;
+import com.hirantha.controllers.admin.income.InvoiceFullViewController;
+import com.hirantha.controllers.admin.items.NewItemController;
 import com.hirantha.controllers.admin.stock.StocksController;
+import com.hirantha.fxmls.FXMLS;
 import com.hirantha.quries.DBConnection;
 import com.hirantha.quries.admins.AdminQueries;
 import com.hirantha.quries.customers.CustomerQueries;
@@ -34,6 +37,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class NewOutGoingInvoiceController implements Initializable {
 
@@ -48,9 +60,6 @@ public class NewOutGoingInvoiceController implements Initializable {
 
     @FXML
     private TextField txtAddress;
-
-    @FXML
-    private TextField txtRank;
 
     @FXML
     private ComboBox<Item> cmbItemCode;
@@ -75,6 +84,9 @@ public class NewOutGoingInvoiceController implements Initializable {
 
     @FXML
     private Button btnRemove;
+    
+    @FXML
+    private ComboBox<Integer> cmbRank;
 
     @FXML
     private TableView<BillTableItem> table;
@@ -151,8 +163,9 @@ public class NewOutGoingInvoiceController implements Initializable {
         dpDate.setValue(LocalDate.now());
 
         txtName.setOnKeyTyped(e -> {
-            if (!(Character.isAlphabetic(e.getCharacter().charAt(0)) || Character.isSpaceChar(e.getCharacter().charAt(0))))
+            if (!(Character.isAlphabetic(e.getCharacter().charAt(0)) || Character.isSpaceChar(e.getCharacter().charAt(0)))) {
                 e.consume();
+            }
         });
 
         txtName.textProperty().addListener((observableValue, s, t1) -> {
@@ -161,11 +174,27 @@ public class NewOutGoingInvoiceController implements Initializable {
             if (temp != null) {
                 selectedCustomer = temp;
                 txtAddress.setText(temp.getAddress());
-                txtRank.setText(String.valueOf(temp.getRank()));
-            } else selectedCustomer = null;
+                cmbRank.getSelectionModel().select(Integer.valueOf(temp.getRank()));
+            } else {
+                selectedCustomer = null;
+            }
             reArrangeDiscount();
         });
 
+        cmbRank.getItems().add(0);
+        cmbRank.getItems().add(1);
+        cmbRank.getItems().add(2);
+        cmbRank.getItems().add(3);
+        cmbRank.getSelectionModel().select(Integer.valueOf(0));
+        
+        cmbRank.getSelectionModel().selectedItemProperty().addListener((observableValue, item, t1) -> {
+            if (t1 != null) {
+                if (selectedCustomer != null)
+                    selectedCustomer.setRank(t1);
+                reArrangeDiscount();
+            }
+        });
+        
         //item code settings
         cmbItemCode.setCellFactory(itemListView -> new ListCell<Item>() {
             @Override
@@ -199,7 +228,7 @@ public class NewOutGoingInvoiceController implements Initializable {
                 selectedItem = t1;
                 cmbItemName.setValue(t1);
                 tvUnit.setText(t1.getUnit());
-                txtCostPerItem.setText(String.valueOf(t1.getSellingPrice()));
+                txtCostPerItem.setText(String.valueOf(t1.getMarkedPrice()));
             }
         });
         cmbItemCode.getItems().setAll(items);
@@ -233,13 +262,15 @@ public class NewOutGoingInvoiceController implements Initializable {
                 cmbItemCode.setValue(t1);
                 tvUnit.setText(t1.getUnit());
                 selectedItem = t1;
-                txtCostPerItem.setText(String.valueOf(t1.getSellingPrice()));
+                txtCostPerItem.setText(String.valueOf(t1.getMarkedPrice()));
             }
         });
         cmbItemName.getItems().setAll(items);
 
         txtQuanitiy.setOnKeyTyped(e -> {
-            if (!Character.isDigit(e.getCharacter().charAt(0))) e.consume();
+            if (!Character.isDigit(e.getCharacter().charAt(0))) {
+                e.consume();
+            }
         });
         txtCostPerItem.setTextFormatter(new TextFormatter<>(change -> {
             if (Pattern.compile("-?\\d*(\\.\\d{0,2})?").matcher(change.getControlNewText()).matches()) {
@@ -275,12 +306,31 @@ public class NewOutGoingInvoiceController implements Initializable {
                 txtBillCost.setText(String.valueOf(Double.parseDouble(txtBillCost.getText()) + billTableItem.getDiscount() - billTableItem.getCostPerItem() * billTableItem.getQuantity()));
             }
 
-            if (Double.parseDouble(txtBillCost.getText()) < 0) txtBillCost.setText("0");
+            if (Double.parseDouble(txtBillCost.getText()) < 0) {
+                txtBillCost.setText("0");
+            }
         });
 
-        if (!Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(), Permissions.ADD_ITEM))
+        if (!Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(), Permissions.ADD_ITEM)) {
             btnNewItem.setVisible(false);
-        //TODO: code for new item button
+        }
+        
+        btnNewItem.setOnAction(e ->{
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Items.NEW_ITEM_VIEW));
+                Parent root1 = (Parent) fxmlLoader.load();
+                NewItemController controller = fxmlLoader.getController();
+            controller.hidePanel();
+                Stage stage = new Stage();
+//            stage.setTitle(invoice.getName() + " @ " + sdf.format(invoice.getDate()));
+                stage.setScene(new Scene(root1));
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+                System.out.println("Here");
+            } catch (IOException r) {
+            }
+        });
+        
 
         txtBillCost.setTextFormatter(new TextFormatter<>(change -> {
             if (Pattern.compile("-?\\d*(\\.\\d{0,2})?").matcher(change.getControlNewText()).matches()) {
@@ -385,11 +435,14 @@ public class NewOutGoingInvoiceController implements Initializable {
 
         btnPrint.setOnMouseClicked(e -> printReport(Integer.parseInt(currentBill.get_id())));
 
-        if (currentBill == null) btnPrint.setVisible(false);
+        if (currentBill == null) {
+            btnPrint.setVisible(false);
+        }
 
         btnPrintAndSave.setOnMouseClicked(e -> {
-            if (save())
+            if (save()) {
                 printReport(Integer.parseInt(currentBill.get_id()));
+            }
         });
     }
 
@@ -449,7 +502,9 @@ public class NewOutGoingInvoiceController implements Initializable {
         double totalBill = 0;
         List<BillTableItem> billTableItems = new ArrayList<>(table.getItems());
         for (BillTableItem billTableItem : billTableItems) {
+            System.out.println(billTableItem.getTotal());
             billTableItem.setDiscount(discount(billTableItem.getCostPerItem()) * billTableItem.getQuantity());
+            billTableItem.setTotal(billTableItem.getTotal());
             totalBill += billTableItem.getCostPerItem() * billTableItem.getQuantity() - billTableItem.getDiscount();
         }
         txtBillCost.setText(String.valueOf(totalBill));
@@ -503,18 +558,19 @@ public class NewOutGoingInvoiceController implements Initializable {
         boolean percentage = selectedItem.isPercentage();
         double discount = discount(costPerItem) * quantity;
         discount = (costPerItem * quantity) - discount < 0 ? 0 : discount;
-        
 
         return new BillTableItem(itemCode, itemName, unit, quantity, costPerItem, discount, percentage);
     }
 
     private double discount(double itemCost) {
         double discount;
-        if(selectedItem == null) return 0;
+        if (selectedItem == null) {
+            return 0;
+        }
         if (selectedItem.isPercentage()) {
-            discount = itemCost * selectedItem.getDiscountAccoringToRank(selectedCustomer == null ? 0 : selectedCustomer.getRank()) / 100;
+            discount = itemCost * selectedItem.getDiscountAccoringToRank(cmbRank.getValue()) / 100;
         } else {
-            discount = selectedItem.getDiscountAccoringToRank(selectedCustomer == null ? 0 : selectedCustomer.getRank());
+            discount = selectedItem.getDiscountAccoringToRank(cmbRank.getValue());
         }
         return discount;
     }
@@ -557,7 +613,7 @@ public class NewOutGoingInvoiceController implements Initializable {
         dpDate.setValue(LocalDate.now());
         txtName.setText("");
         txtAddress.setText("");
-        txtRank.setText("0");
+        cmbRank.getSelectionModel().select(Integer.valueOf(0));
         cmbItemCode.setValue(null);
         cmbItemName.setValue(null);
         txtQuanitiy.setText("");
@@ -592,13 +648,14 @@ public class NewOutGoingInvoiceController implements Initializable {
 
     private Bill createBill() {
 
-        if (selectedCustomer == null)
+        if (selectedCustomer == null) {
             selectedCustomer = CustomerQueries.getInstance().insertCustomer(new Customer("0", true, "Mr.", txtName.getText(), txtAddress.getText(), "", 0), false);
+        }
 
         Date date = java.sql.Date.valueOf(dpDate.getValue());
         String customerName = txtName.getText();
         String customerAddress = txtAddress.getText();
-        int customerRank = Integer.parseInt(txtRank.getText());
+        int customerRank = cmbRank.getValue();
         String customerId = selectedCustomer.getId();
         List<BillTableItem> tableItems = new ArrayList<>(table.getItems());
         double billCost = Double.parseDouble(txtBillCost.getText());
@@ -611,10 +668,8 @@ public class NewOutGoingInvoiceController implements Initializable {
         String checkedAdminId = cmbchecked.getValue().getId();
         String vehicleNumber = txtVehicleNumber.getText();
 
-
         return new Bill(goingToUpdate ? currentBill.get_id() : "", date, customerId, customerName, customerAddress, customerRank, tableItems, billCost, preparedAdminName, preparedAdminId, checkedAdminName, checkedAdminId, acceptedAdminName, acceptedAdminId, vehicleNumber);
     }
-
 
     public void initToUpdate(Bill bill) {
         btnPrint.setVisible(true);
@@ -623,7 +678,7 @@ public class NewOutGoingInvoiceController implements Initializable {
         dpDate.setValue(new java.sql.Date(bill.getDate().getTime()).toLocalDate());
         txtName.setText(bill.getCustomerName());
         txtAddress.setText(bill.getCustomerAddress());
-        txtRank.setText(String.valueOf(bill.getCustomerRank()));
+        cmbRank.getSelectionModel().select(Integer.valueOf(bill.getCustomerRank()));
         selectedCustomer = CustomerQueries.getInstance().getCustomer(bill.getCustomerId());
         table.getItems().addAll(bill.getTableItems());
         txtBillCost.setText(String.valueOf(bill.getTotalBillCost()));
@@ -633,5 +688,3 @@ public class NewOutGoingInvoiceController implements Initializable {
         txtVehicleNumber.setText(bill.getVehicleNumber());
     }
 }
-
-

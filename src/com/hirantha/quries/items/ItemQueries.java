@@ -24,6 +24,7 @@ public class ItemQueries {
     public static String RANK1 = "rank1";
     public static String RANK2 = "rank2";
     public static String RANK3 = "rank3";
+    public static String DELETE_FLAG = "delete_flag";
 
 
     private static ItemQueries instance;
@@ -36,7 +37,7 @@ public class ItemQueries {
         return instance;
     }
 
-    public void insertItem(Item item) {
+    public int[] insertItem(Item item) {
 
         String query = "INSERT INTO " + ITEMS_TABLE
                 + " VALUES ("
@@ -50,10 +51,13 @@ public class ItemQueries {
                 + item.isPercentage() + ","
                 + item.getRank1() + ","
                 + item.getRank2() + ","
-                + item.getRank3() + ");";
+                + item.getRank3() + ","
+                + "0);";
 
-        int id = DBConnection.executeQuery(query, false);
-        FDBConnection.executeQuery(query, false);
+        int ids[] = new int[2];
+        ids[0] = DBConnection.executeQuery(query, false);
+        ids[1] = FDBConnection.executeQuery(query, false);
+        return ids;
     }
 
     public List<String> getUnits() {
@@ -93,7 +97,7 @@ public class ItemQueries {
     public List<Item> getItems() {
         List<Item> items = new ArrayList<>();
 
-        String query = "SELECT * FROM " + ITEMS_TABLE;
+        String query = "SELECT * FROM " + ITEMS_TABLE + " WHERE " + DELETE_FLAG +"=0;";
 
         ResultSet resultSet = DBConnection.executeQuery(query);
         try {
@@ -120,13 +124,20 @@ public class ItemQueries {
     }
 
     public void deleteItem(Item item) {
-        String query = "DELETE FROM " + ITEMS_TABLE + " WHERE " + ITEM_ID + "=" + item.getItemCode() + ";";
+        String query = "UPDATE items SET "+ DELETE_FLAG +" = 1 WHERE " + ITEM_ID + "=" + item.getItemCode() + ";";
+        DBConnection.executeQuery(query, false);
+        FDBConnection.executeQuery(query, false);
+    }
+    public void deleteItem(int id) {
+        String query = "UPDATE items SET "+ DELETE_FLAG +" = 1 WHERE " + ITEM_ID + "=" + id + ";";
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
     }
 
-    public void updateItem(Item item) {
-
+    public void updateItem(Item oldItem,Item item) {
+        
+        int ids[] = insertItem(oldItem);
+        
         String query = "UPDATE " + ITEMS_TABLE
                 + " SET "
                 + NAME + "='" + item.getName() + "', "
@@ -138,10 +149,13 @@ public class ItemQueries {
                 + PERCENTAGE + "=" + item.isPercentage() + ", "
                 + RANK1 + "=" + item.getRank1() + ", "
                 + RANK2 + "=" + item.getRank2() + ", "
-                + RANK3 + "=" + item.getRank3()
+                + RANK3 + "=" + item.getRank3() + ","
+                + DELETE_FLAG + "=0" 
                 + " WHERE " + ITEM_ID + "=" + String.valueOf(item.getItemCode()) + ";";
 
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
+        
+        deleteItem(ids[0]);
     }
 }

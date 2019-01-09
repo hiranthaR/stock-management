@@ -53,6 +53,7 @@ public class InvoiceQueries {
     private String COST_PER_ITEM = "costPerItem";
     private String ITEM_UNIT = "unit";
     private String CASH = "cash";
+    private String CHEQUE_NO = "cheque_no";
     private String BANK = "bank";
     private String BRANCH = "branch";
     private String CHEQUE_DATE = "chequeDate";
@@ -189,7 +190,7 @@ public class InvoiceQueries {
         double billCost = document.getDouble(TOTAL_BILL_COST);
         boolean cash = document.getBoolean(CASH);
 
-        String bank = null, branch = null;
+        String bank = null, branch = null,chequeNo = null;
         Date chequeDate = null;
         double amount = 0;
 
@@ -207,7 +208,8 @@ public class InvoiceQueries {
         String checkedAdminName = document.getString(CHECKED_ADMIN_NAME);
         String checkedAdminId = document.getString(CHECKED_ADMIN_ID);
 
-        return new Invoice(id, date, invoiceNumber, supplierName, supplierAddress, invoiceTableItems, billCost, cash, bank, branch, chequeDate, amount, preparedAdminName, preparedAdminId, checkedAdminName, checkedAdminId, acceptedAdminName, acceptedAdminId);
+//        return new Invoice(id, date, invoiceNumber, supplierName, supplierAddress, invoiceTableItems, billCost, cash, bank, branch, chequeDate, amount, preparedAdminName, preparedAdminId, checkedAdminName, checkedAdminId, acceptedAdminName, acceptedAdminId);
+        return null;
     }
 
     public void deleteInvoice(Invoice invoice) {

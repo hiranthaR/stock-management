@@ -3,7 +3,9 @@ package com.hirantha.controllers.admin.income;
 import animatefx.animation.FadeOut;
 import com.hirantha.admins.CurrentAdmin;
 import com.hirantha.admins.Permissions;
+import com.hirantha.controllers.admin.items.NewItemController;
 import com.hirantha.controllers.admin.stock.StocksController;
+import com.hirantha.fxmls.FXMLS;
 import com.hirantha.quries.DBConnection;
 import com.hirantha.quries.admins.AdminQueries;
 import com.hirantha.quries.invoice.InvoiceQueries;
@@ -36,6 +38,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class NewInvoiceController implements Initializable {
 
@@ -110,6 +117,9 @@ public class NewInvoiceController implements Initializable {
 
     @FXML
     private RadioButton radioCheque;
+   
+    @FXML
+    private TextField txtChequeNo;
 
     @FXML
     private TextField txtBank;
@@ -291,10 +301,26 @@ public class NewInvoiceController implements Initializable {
 
         });
 
-        if (!Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(), Permissions.ADD_ITEM))
+        if (!Permissions.checkPermission(CurrentAdmin.getInstance().getCurrentAdmin().getLevel(), Permissions.ADD_ITEM)){
             btnNewItem.setVisible(false);
-        //TODO: code for new item button
-
+        }
+         
+       btnNewItem.setOnAction(e ->{
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Items.NEW_ITEM_VIEW));
+                Parent root1 = (Parent) fxmlLoader.load();
+                NewItemController controller = fxmlLoader.getController();
+            controller.hidePanel();
+                Stage stage = new Stage();
+//            stage.setTitle(invoice.getName() + " @ " + sdf.format(invoice.getDate()));
+                stage.setScene(new Scene(root1));
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+                System.out.println("Here");
+            } catch (IOException r) {
+            }
+        });
+        
         txtBillCost.setTextFormatter(new TextFormatter<>(change -> {
             if (Pattern.compile("-?\\d*(\\.\\d{0,2})?").matcher(change.getControlNewText()).matches()) {
                 return change;
@@ -310,6 +336,7 @@ public class NewInvoiceController implements Initializable {
         txtBranch.setDisable(true);
         dpChequeDate.setDisable(true);
         txtAmount.setDisable(true);
+        txtChequeNo.setDisable(true);
         cashOrCheck.selectedToggleProperty().addListener((observableValue, toggle, t1) -> {
             if (cashOrCheck.getSelectedToggle() != null) {
                 if (!(boolean) cashOrCheck.getSelectedToggle().getUserData()) {
@@ -317,11 +344,13 @@ public class NewInvoiceController implements Initializable {
                     txtBranch.setDisable(false);
                     dpChequeDate.setDisable(false);
                     txtAmount.setDisable(false);
+                     txtChequeNo.setDisable(false);
                 } else {
                     txtBank.setDisable(true);
                     txtBranch.setDisable(true);
                     dpChequeDate.setDisable(true);
                     txtAmount.setDisable(true);
+                     txtChequeNo.setDisable(true);
                 }
             }
         });
@@ -559,49 +588,55 @@ public class NewInvoiceController implements Initializable {
         if (txtInvoiceNumber.getText().isEmpty()) {
             alert.setContentText("Supplier Invoice number is empty!");
             alert.showAndWait();
-            status = false;
+            return false;
         }
         if (txtName.getText().isEmpty()) {
             alert.setContentText("Supplier name is empty!");
             alert.showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtAddress.getText().isEmpty()) {
             alert.setContentText("Supplier address is empty!");
             alert.showAndWait();
-            status = false;
+            return false;
         }
 
         if (table.getItems().size() < 1) {
             alert.setContentText("No items added yet!");
             alert.showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtBillCost.getText().isEmpty()) {
             alert.setContentText("Total bill cost is empty!");
             alert.showAndWait();
-            status = false;
+            return false;
         }
 
         if (!(boolean) cashOrCheck.getSelectedToggle().getUserData()) {
             if (txtBank.getText().isEmpty()) {
                 alert.setContentText("Bank is empty!");
                 alert.showAndWait();
-                status = false;
+                return false;
             }
 
+            if (txtChequeNo.getText().isEmpty()) {
+                alert.setContentText("Cheque Number is empty!");
+                alert.showAndWait();
+                return false;
+            }
+            
             if (txtBranch.getText().isEmpty()) {
                 alert.setContentText("Branch is empty!");
                 alert.showAndWait();
-                status = false;
+                return false;
             }
 
             if (txtAmount.getText().isEmpty()) {
                 alert.setContentText("Amount is empty!");
                 alert.showAndWait();
-                status = false;
+                return false;
             }
         }
 
@@ -617,11 +652,12 @@ public class NewInvoiceController implements Initializable {
         double billCost = Double.parseDouble(txtBillCost.getText());
         boolean cash = (boolean) cashOrCheck.getSelectedToggle().getUserData();
 
-        String bank = null, branch = null;
+        String bank = null, branch = null,chequeNo = null;
         Date chequeDate = null;
         double amount = 0;
 
         if (!cash) {
+            chequeNo = txtChequeNo.getText();
             bank = txtBank.getText();
             branch = txtBranch.getText();
             chequeDate = java.sql.Date.valueOf(dpChequeDate.getValue());
@@ -636,7 +672,7 @@ public class NewInvoiceController implements Initializable {
         String checkedAdminId = cmbchecked.getValue().getId();
 
 
-        return new Invoice(goingToUpdate ? invoice.get_id() : "", date, invoiceNumber, supplierName, supplierAddress, invoiceTableItems, billCost, cash, bank, branch, chequeDate, amount, preparedAdminName, preparedAdminId, checkedAdminName, checkedAdminId, acceptedAdminName, acceptedAdminId);
+        return new Invoice(goingToUpdate ? invoice.get_id() : "", date, invoiceNumber, supplierName, supplierAddress, invoiceTableItems, billCost, cash, chequeNo,bank, branch, chequeDate, amount, preparedAdminName, preparedAdminId, checkedAdminName, checkedAdminId, acceptedAdminName, acceptedAdminId);
     }
 
     private void clearFields() {

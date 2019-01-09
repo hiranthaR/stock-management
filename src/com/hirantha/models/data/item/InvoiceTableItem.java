@@ -9,7 +9,7 @@ import java.util.Objects;
 public class InvoiceTableItem {
 
     private SimpleStringProperty itemId; // == item code
-    private SimpleStringProperty name;
+    private String name;
     private SimpleStringProperty unit;
     private SimpleIntegerProperty quantity;
     private SimpleDoubleProperty costPerItem;
@@ -17,7 +17,8 @@ public class InvoiceTableItem {
 
     public InvoiceTableItem(String itemId, String name, String unit, int quantity, double costPerItem) {
         this.itemId = new SimpleStringProperty(itemId);
-        this.name = new SimpleStringProperty(name);
+//        this.name = new SimpleStringProperty(name);
+        this.name = name;
         this.unit = new SimpleStringProperty(unit);
         this.quantity = new SimpleIntegerProperty(quantity);
         this.costPerItem = new SimpleDoubleProperty(costPerItem);
@@ -37,16 +38,17 @@ public class InvoiceTableItem {
     }
 
     public String getName() {
-        return name.get();
-    }
-
-    public SimpleStringProperty nameProperty() {
+//        return name.get();
         return name;
     }
 
-    public void setName(String name) {
-        this.name.set(name);
-    }
+//    public SimpleStringProperty nameProperty() {
+//        return name;
+//    }
+
+//    public void setName(String name) {
+//        this.name.set(name);
+//    }
 
     public String getUnit() {
         return unit.get();

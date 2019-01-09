@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import javafx.scene.layout.AnchorPane;
 
 public class InvoiceFullViewController implements Initializable {
 
@@ -58,6 +59,12 @@ public class InvoiceFullViewController implements Initializable {
 
     @FXML
     private HBox rowChequeDetails;
+    
+    @FXML
+    private HBox rowChequeNo;
+
+    @FXML
+    private Label tvChequeNo;
 
     @FXML
     private HBox rowBank;
@@ -101,6 +108,9 @@ public class InvoiceFullViewController implements Initializable {
     private IncomeController incomeController;
     private Invoice invoice;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+    
+   @FXML
+    private AnchorPane panel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -130,6 +140,7 @@ public class InvoiceFullViewController implements Initializable {
     }
 
     public void init(Invoice invoice) {
+        showPanel();
         this.invoice = invoice;
         tvInvoiceNumber.setText(invoice.get_id());
         tvDate.setText(simpleDateFormat.format(invoice.getDate()));
@@ -142,9 +153,9 @@ public class InvoiceFullViewController implements Initializable {
 
         tvTotalCost.setText(String.valueOf(invoice.getBillCost()));
 
-        System.out.println(invoice.isCash());
-
         if (invoice.isCash()) {
+            rowChequeNo.setManaged(false);
+            rowChequeNo.setVisible(false);
             rowBank.setManaged(false);
             rowBank.setVisible(false);
             rowBranch.setManaged(false);
@@ -156,6 +167,8 @@ public class InvoiceFullViewController implements Initializable {
             rowChequeDetails.setManaged(false);
             rowChequeDetails.setVisible(false);
         } else {
+            rowChequeNo.setManaged(true);
+            rowChequeNo.setVisible(true);
             rowBank.setManaged(true);
             rowBank.setVisible(true);
             rowBranch.setManaged(true);
@@ -167,6 +180,7 @@ public class InvoiceFullViewController implements Initializable {
             rowChequeDetails.setManaged(true);
             rowChequeDetails.setVisible(true);
 
+            tvChequeNo.setText(invoice.getChequeNo());
             tvBank.setText(invoice.getBank());
             tvBranch.setText(invoice.getBranch());
             tvAmount.setText(String.valueOf(invoice.getAmount()));
@@ -181,5 +195,15 @@ public class InvoiceFullViewController implements Initializable {
     public InvoiceFullViewController setIncomeController(IncomeController incomeController) {
         this.incomeController = incomeController;
         return this;
+    }
+    
+    public void hidePanel(){
+        panel.setManaged(false);
+        panel.setVisible(false);
+    }
+    
+    public void showPanel(){
+        panel.setManaged(true);
+        panel.setVisible(true);
     }
 }

@@ -361,7 +361,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <AnchorPane prefHeight="70.0" prefWidth="453.0">
+                        <AnchorPane fx:id="panel" prefHeight="70.0" prefWidth="453.0">
                             <children>
                                 <Label fx:id="btnEdit" alignment="CENTER" layoutX="227.0" stylesheets="@../../../css/admin/dashboard/customers/customer_profile.css" text="edit">
                                     <styleClass>

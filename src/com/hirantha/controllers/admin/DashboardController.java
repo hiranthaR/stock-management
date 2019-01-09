@@ -135,9 +135,6 @@ public class DashboardController implements Initializable {
 
         btnMinimize.setOnMouseClicked(e -> ((Stage) btnMinimize.getScene().getWindow()).setIconified(true));
 
-        //temporary hide the financial
-        menuFinancial.setVisible(false);
-        menuFinancial.setManaged(false);
 
         if (Permissions.getRole(CurrentAdmin.getInstance().getCurrentAdmin().getLevel()).equals(Admin.ROLE_INPUT_OUTPUT)) {
             menuAdmins.setVisible(false);
@@ -146,18 +143,18 @@ public class DashboardController implements Initializable {
         if (Permissions.getRole(CurrentAdmin.getInstance().getCurrentAdmin().getLevel()).equals(Admin.ROLE_INPUT)) {
             menuCustomers.setVisible(false);
             menuCustomers.setManaged(false);
-            menuStocks.setVisible(false);
-            menuStocks.setManaged(false);
+//            menuStocks.setVisible(false);
+//            menuStocks.setManaged(false);
             menuOutgoing.setVisible(false);
             menuOutgoing.setManaged(false);
             menuAdmins.setVisible(false);
             menuAdmins.setManaged(false);
         }
         if (Permissions.getRole(CurrentAdmin.getInstance().getCurrentAdmin().getLevel()).equals(Admin.ROLE_OUTPUT)) {
-            menuItems.setVisible(false);
-            menuItems.setManaged(false);
-            menuStocks.setVisible(false);
-            menuStocks.setManaged(false);
+//            menuItems.setVisible(false);
+//            menuItems.setManaged(false);
+//            menuStocks.setVisible(false);
+//            menuStocks.setManaged(false);
             menuIncome.setVisible(false);
             menuIncome.setManaged(false);
             menuAdmins.setVisible(false);

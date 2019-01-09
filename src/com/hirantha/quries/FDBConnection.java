@@ -6,7 +6,8 @@ import java.sql.*;
 public class FDBConnection {
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1/fstock-db";
+//    private static final String DB_URL = "jdbc:mysql://192.168.8.152:3306/stockdb";
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/fstock-db";
 
     private static final String USERNAME = "root";
     private static final String PASSWORD = "123";

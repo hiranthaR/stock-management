@@ -24,7 +24,7 @@ public class FXMLS {
         }
 
         public static class Financial {
-            public static String FINANCIAL_DASHBOARD = "/com/hirantha/fxmls/admin/financial.fxml";
+            public static String FINANCIAL_DASHBOARD = "/com/hirantha/fxmls/admin/financial/financial.fxml";
         }
 
         public static class Income {

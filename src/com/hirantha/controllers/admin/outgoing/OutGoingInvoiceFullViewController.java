@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import javafx.scene.layout.AnchorPane;
 
 public class OutGoingInvoiceFullViewController implements Initializable {
 
@@ -74,6 +75,9 @@ public class OutGoingInvoiceFullViewController implements Initializable {
 
     @FXML
     private Label btnDelete;
+   
+    @FXML
+    private AnchorPane panel;
 
     private OutGoingController outGoingController;
     private Bill bill;
@@ -129,5 +133,15 @@ public class OutGoingInvoiceFullViewController implements Initializable {
     public OutGoingInvoiceFullViewController setOutGoingController(OutGoingController outGoingController) {
         this.outGoingController = outGoingController;
         return this;
+    }
+    
+     public void hidePanel(){
+        panel.setManaged(false);
+        panel.setVisible(false);
+    }
+    
+    public void showPanel(){
+        panel.setManaged(true);
+        panel.setVisible(true);
     }
 }

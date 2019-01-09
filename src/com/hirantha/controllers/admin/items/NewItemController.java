@@ -168,7 +168,7 @@ public class NewItemController implements Initializable {
         btnSave.setOnMouseClicked(e -> {
             if (valid()) {
                 if (goingToUpdate) {
-                    ItemQueries.getInstance().updateItem(createItem());
+                    ItemQueries.getInstance().updateItem(item,createItem());
                     goingToUpdate = false;
                 } else {
                     ItemQueries.getInstance().insertItem(createItem());
@@ -314,5 +314,9 @@ public class NewItemController implements Initializable {
         txtDiscountRank1.setText(String.valueOf(item.getRank1()));
         txtDiscountRank2.setText(String.valueOf(item.getRank2()));
         txtDiscountRank3.setText(String.valueOf(item.getRank3()));
+    }
+    
+    public void hidePanel(){
+        btnCancel.setVisible(false);
     }
 }

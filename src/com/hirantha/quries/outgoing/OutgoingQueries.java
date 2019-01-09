@@ -441,7 +441,13 @@ public class OutgoingQueries {
     }
 
     public void deleteBill(Bill bill) {
-        String query = "DELETE FROM " + OUTGOINGS_TABLE + " WHERE " + OUTGOING_ID + "=" + bill.get_id() + ";";
+          String query = "DELETE FROM " + OUTGOINGS_ITEMS_TABLE + " WHERE " + OUTGOING_ID + "=" + bill.get_id() + ";";
+    
+        DBConnection.executeQuery(query, false);
+        FDBConnection.executeQuery(query, false);
+    
+        
+         query = "DELETE FROM " + OUTGOINGS_TABLE + " WHERE " + OUTGOING_ID + "=" + bill.get_id() + ";";
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
     }

@@ -41,7 +41,7 @@ public class ItemQueries {
 
         String query = "INSERT INTO " + ITEMS_TABLE
                 + " VALUES ("
-                + "0" + ","
+                + "'" + item.getItemCode() +  "',"
                 + "'" + item.getName() + "',"
                 + "'" + item.getCategory() + "',"
                 + "'" + item.getUnit() + "',"
@@ -103,7 +103,7 @@ public class ItemQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemID = resultSet.getInt(ITEM_ID);
+                    String itemID = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(NAME);
                     String category = resultSet.getString(CATEGORY);
                     String unit = resultSet.getString(UNIT);
@@ -114,7 +114,7 @@ public class ItemQueries {
                     double rank1 = resultSet.getDouble(RANK1);
                     double rank2 = resultSet.getDouble(RANK2);
                     double rank3 = resultSet.getDouble(RANK3);
-                    items.add(new Item(String.valueOf(itemID), name, category, unit, receiptPrice, markedPrice, sellingPrice, isPercentage, rank1, rank2, rank3));
+                    items.add(new Item(itemID, name, category, unit, receiptPrice, markedPrice, sellingPrice, isPercentage, rank1, rank2, rank3));
                 }
             }
         } catch (SQLException e) {

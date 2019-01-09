@@ -36,6 +36,9 @@ public class NewItemController implements Initializable {
 
     @FXML
     private TextField txtMarkPrice;
+    
+    @FXML
+    private TextField txtItemCode;
 
     @FXML
     private TextField txtSellingPrice;
@@ -144,6 +147,7 @@ public class NewItemController implements Initializable {
         });
 
         txtItemName.textProperty().addListener((observableValue, s, t1) -> txtItemName.setText(WordUtils.capitalize(t1)));
+        txtItemCode.textProperty().addListener((observableValue, s, t1) -> txtItemCode.setText(t1.toUpperCase()));
 
         //setting up radio buttons
         radioPercentage.setUserData(true);
@@ -207,7 +211,7 @@ public class NewItemController implements Initializable {
 
         String id;
         if (goingToUpdate) id = item.getItemCode();
-        else id = "0";
+        else id = txtItemCode.getText();
 
 
         return new Item(id, name, category, unit, receiptPrice, markedPrice, sellingPrice, percentage, discountRank1, discountRank2, discountRank3);
@@ -217,50 +221,62 @@ public class NewItemController implements Initializable {
 
         boolean status = true;
 
+        if (txtItemCode.getText().isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Item Code is empty!").showAndWait();
+            return false;
+        }
+        
+        
+        if (txtItemCode.getText().isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Item Code is empty!").showAndWait();
+            return false;
+        }
+        
         if (cmbCategory.getEditor().getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Category is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (cmbUnit.getEditor().getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Unit is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtReceiptPrice.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Receipt Price is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtMarkPrice.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Marked Price is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtSellingPrice.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Selling Price is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtDiscountRank1.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Discount Rank 1 is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtDiscountRank2.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Discount Rank 2 is empty!").showAndWait();
-            status = false;
+            return false;
         }
 
         if (txtDiscountRank3.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Discount Rank 3 is empty!").showAndWait();
-            status = false;
+            return false;
         }
         return status;
     }
 
     private void clearFields() {
         txtItemName.setText("");
+        txtItemCode.setText("");
 
         cmbCategory.valueProperty().set(null);
         cmbUnit.valueProperty().set(null);
@@ -304,6 +320,7 @@ public class NewItemController implements Initializable {
         this.goingToUpdate = true;
         this.item = item;
         txtItemName.setText(item.getName());
+        txtItemCode.setText(item.getItemCode());
         loadUnitsAndCategories();
         cmbCategory.getEditor().setText(item.getCategory());
         cmbUnit.getEditor().setText(item.getUnit());

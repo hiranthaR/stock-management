@@ -47,7 +47,7 @@
                               </ImageView>
                                <TextField fx:id="txtItemName" prefWidth="353.0" promptText="Item Name">
                                    <font>
-                                       <Font size="23.0" />
+                                       <Font size="19.0" />
                                    </font>
                                  <HBox.margin>
                                      <Insets left="20.0" />
@@ -60,9 +60,33 @@
                         </HBox>
                          <AnchorPane minHeight="1.0" prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: #cecece;">
                            <VBox.margin>
-                               <Insets bottom="10.0" left="20.0" right="20.0" />
+                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                         </AnchorPane>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/chevron.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label prefWidth="140.0" text="Item Code" textFill="#6b6b6b">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtItemCode" alignment="CENTER_RIGHT" prefWidth="250.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
+                           </padding>
+                        </HBox>
                         <HBox alignment="CENTER_LEFT">
                            <children>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -234,7 +258,7 @@
                               </RadioButton>
                            </children>
                            <padding>
-                               <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
+                               <Insets left="25.0" right="25.0" />
                            </padding>
                         </HBox>
                         <HBox alignment="CENTER_LEFT">
@@ -263,7 +287,7 @@
                               </Label>
                            </children>
                            <padding>
-                               <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
+                               <Insets bottom="5.0" left="25.0" right="25.0" />
                            </padding>
                            <VBox.margin>
                                <Insets top="5.0" />
@@ -348,7 +372,7 @@
                   </VBox>
                </children>
                <padding>
-                   <Insets top="15.0" />
+                   <Insets top="5.0" />
                </padding>
             </AnchorPane>
          </children>

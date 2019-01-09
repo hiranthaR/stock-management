@@ -20,7 +20,7 @@
                                 <Image url="@../../../icons/bolt.png" />
                             </image>
                         </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefWidth="213.0">
+                        <VBox alignment="CENTER_LEFT" prefWidth="188.0">
                             <HBox.margin>
                                 <Insets left="5.0" />
                             </HBox.margin>
@@ -43,7 +43,7 @@
                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                             </padding>
                         </VBox>
-                        <VBox alignment="CENTER" prefWidth="30.0">
+                        <VBox alignment="CENTER" prefWidth="55.0">
                             <children>
                                 <Label fx:id="tvId" text="0000">
                            <font>

@@ -37,7 +37,7 @@ public class ItemQueries {
         return instance;
     }
 
-    public int[] insertItem(Item item) {
+    public void insertItem(Item item) {
 
         String query = "INSERT INTO " + ITEMS_TABLE
                 + " VALUES ("
@@ -54,10 +54,10 @@ public class ItemQueries {
                 + item.getRank3() + ","
                 + "0);";
 
-        int ids[] = new int[2];
-        ids[0] = DBConnection.executeQuery(query, false);
-        ids[1] = FDBConnection.executeQuery(query, false);
-        return ids;
+       
+        DBConnection.executeQuery(query, false);
+        FDBConnection.executeQuery(query, false);
+        
     }
 
     public List<String> getUnits() {
@@ -124,22 +124,24 @@ public class ItemQueries {
     }
 
     public void deleteItem(Item item) {
-        String query = "UPDATE items SET "+ DELETE_FLAG +" = 1 WHERE " + ITEM_ID + "=" + item.getItemCode() + ";";
+        String query = "UPDATE items SET "+ DELETE_FLAG +" = 1 WHERE " + ITEM_ID + "='" + item.getItemCode() + "';";
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
     }
-    public void deleteItem(int id) {
-        String query = "UPDATE items SET "+ DELETE_FLAG +" = 1 WHERE " + ITEM_ID + "=" + id + ";";
+    public void deleteItem(String id) {
+        String query = "UPDATE items SET "+ DELETE_FLAG +" = 1 WHERE " + ITEM_ID + "='" + id + "';";
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
     }
 
     public void updateItem(Item oldItem,Item item) {
-        
-        int ids[] = insertItem(oldItem);
+        String oldItemCode = oldItem.getItemCode();
+        oldItem.setItemCode(oldItemCode + "~");
+        insertItem(oldItem);
         
         String query = "UPDATE " + ITEMS_TABLE
                 + " SET "
+                + ITEM_ID + "='" + item.getItemCode()+ "', "
                 + NAME + "='" + item.getName() + "', "
                 + CATEGORY + "='" + item.getCategory() + "', "
                 + UNIT + "='" + item.getUnit() + "', "
@@ -151,11 +153,15 @@ public class ItemQueries {
                 + RANK2 + "=" + item.getRank2() + ", "
                 + RANK3 + "=" + item.getRank3() + ","
                 + DELETE_FLAG + "=0" 
-                + " WHERE " + ITEM_ID + "=" + String.valueOf(item.getItemCode()) + ";";
+                + " WHERE " + ITEM_ID + "='" + oldItemCode + "';";
 
         DBConnection.executeQuery(query, false);
         FDBConnection.executeQuery(query, false);
         
-        deleteItem(ids[0]);
+        deleteItem(oldItem.getItemCode());
+    }
+    
+    public void checkItemCode(){
+        String query = "SELECT * FROM " + ITEMS_TABLE + " WHERE " + DELETE_FLAG +"=0;";
     }
 }

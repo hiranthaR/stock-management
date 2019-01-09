@@ -210,8 +210,9 @@ public class NewItemController implements Initializable {
         boolean percentage = (boolean) discountToggleGroup.getSelectedToggle().getUserData();
 
         String id;
-        if (goingToUpdate) id = item.getItemCode();
-        else id = txtItemCode.getText();
+//        if (goingToUpdate) id = item.getItemCode();
+//        else 
+            id = txtItemCode.getText();
 
 
         return new Item(id, name, category, unit, receiptPrice, markedPrice, sellingPrice, percentage, discountRank1, discountRank2, discountRank3);

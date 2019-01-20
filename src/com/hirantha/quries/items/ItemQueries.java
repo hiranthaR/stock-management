@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ItemQueries {
 
@@ -56,6 +59,7 @@ public class ItemQueries {
 
        
         DBConnection.executeQuery(query, false);
+        
         FDBConnection.executeQuery(query, false);
         
     }
@@ -136,7 +140,7 @@ public class ItemQueries {
 
     public void updateItem(Item oldItem,Item item) {
         String oldItemCode = oldItem.getItemCode();
-        oldItem.setItemCode(oldItemCode + "~");
+        oldItem.setItemCode(oldItemCode + "~" + String.valueOf(new Random().nextInt(9999)));
         insertItem(oldItem);
         
         String query = "UPDATE " + ITEMS_TABLE
@@ -161,7 +165,14 @@ public class ItemQueries {
         deleteItem(oldItem.getItemCode());
     }
     
-    public void checkItemCode(){
-        String query = "SELECT * FROM " + ITEMS_TABLE + " WHERE " + DELETE_FLAG +"=0;";
+    public boolean isItemCodeAvailable(String itemCode){
+        String query = "SELECT * FROM " + ITEMS_TABLE + " WHERE " + DELETE_FLAG +"=0 AND "+ITEM_ID+"='"+itemCode+"';";
+        ResultSet resultSet = DBConnection.executeQuery(query);
+        try {
+            return resultSet.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }

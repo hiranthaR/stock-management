@@ -7,7 +7,7 @@ public class FDBConnection {
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 //    private static final String DB_URL = "jdbc:mysql://192.168.8.152:3306/stockdb";
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/fstock-db";
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/fstockdb";
 
     private static final String USERNAME = "root";
     private static final String PASSWORD = "123";
@@ -19,8 +19,9 @@ public class FDBConnection {
             try {
                 Class.forName(JDBC_DRIVER);
                 conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Conncetion Failed with f stock");
             }
         }
         return conn;
@@ -36,7 +37,8 @@ public class FDBConnection {
                 id = resultSet.getInt(1);
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            System.out.println("fstock con");
             e.printStackTrace();
         }
         return id;
@@ -46,8 +48,9 @@ public class FDBConnection {
         try {
             Statement statement = getConnection().createStatement();
             return statement.executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("fstock con f");
+//            e.printStackTrace();
         }
         return null;
     }

@@ -10,7 +10,6 @@ import com.hirantha.quries.items.ItemQueries;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,8 +86,9 @@ public class InvoiceQueries {
             insertTableItems(invoice);
             if (!invoice.isCash())
                 insertCheque(invoice);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         insertFInvoice(invoice);
         return invoice;
@@ -120,8 +120,9 @@ public class InvoiceQueries {
             insertFTableItems(invoice);
             if (!invoice.isCash())
                 insertFCheque(invoice);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         return invoice;
     }
@@ -134,8 +135,8 @@ public class InvoiceQueries {
         for (int i = 0; i < invoice.getInvoiceTableItems().size(); i++) {
             InvoiceTableItem invoiceTableItem = invoice.getInvoiceTableItems().get(i);
             String comma = i == invoice.getInvoiceTableItems().size() - 1 ? ";" : ",";
-            query.append("(")
-                    .append(invoiceTableItem.getItemId()).append(",")
+            query.append("('")
+                    .append(invoiceTableItem.getItemId()).append("',")
                     .append(invoice.get_id()).append(",")
                     .append(invoiceTableItem.getQuantity()).append(",")
                     .append(invoiceTableItem.getCostPerItem()).append(")").append(comma);
@@ -157,8 +158,9 @@ public class InvoiceQueries {
             PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
             preparedStatement.setDate(1, new java.sql.Date(invoice.getChequeDate().getTime()));
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
     }
 
@@ -171,7 +173,7 @@ public class InvoiceQueries {
             InvoiceTableItem invoiceTableItem = invoice.getInvoiceTableItems().get(i);
             String comma = i == invoice.getInvoiceTableItems().size() - 1 ? ";" : ",";
             query.append("(")
-                    .append(invoiceTableItem.getItemId()).append(",")
+                    .append("'").append(invoiceTableItem.getItemId()).append("',")
                     .append(invoice.get_id()).append(",")
                     .append(invoiceTableItem.getQuantity()).append(F).append(",")
                     .append(invoiceTableItem.getCostPerItem()).append(")").append(comma);
@@ -193,8 +195,9 @@ public class InvoiceQueries {
             PreparedStatement preparedStatement = FDBConnection.getConnection().prepareStatement(query);
             preparedStatement.setDate(1, new java.sql.Date(invoice.getChequeDate().getTime()));
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
     }
 
@@ -255,8 +258,9 @@ public class InvoiceQueries {
                 preparedStatement.setDate(1, new java.sql.Date(invoice.getChequeDate().getTime()));
                 preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+//                e.printStackTrace();
+            System.out.println("exeption");
             }
         } else {
             query = new StringBuilder("DELETE FROM ").append(CHEQUE_TABLE).append(" WHERE ").append(INVOICE_ID).append("=").append(invoice.get_id()).append(";");
@@ -280,8 +284,9 @@ public class InvoiceQueries {
             PreparedStatement preparedStatement = FDBConnection.getConnection().prepareStatement(query.toString());
             preparedStatement.setDate(1, new java.sql.Date(invoice.getDate().getTime()));
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
     }
 
@@ -342,8 +347,9 @@ public class InvoiceQueries {
                 preparedStatement.setDate(1, new java.sql.Date(invoice.getChequeDate().getTime()));
                 preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+//                e.printStackTrace();
+            System.out.println("exeption");
             }
         } else {
             query = new StringBuilder("DELETE FROM ").append(CHEQUE_TABLE).append(" WHERE ").append(INVOICE_ID).append("=").append(invoice.get_id()).append(";");
@@ -367,8 +373,9 @@ public class InvoiceQueries {
             PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query.toString());
             preparedStatement.setDate(1, new java.sql.Date(invoice.getDate().getTime()));
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         updateFInvoice(invoice);
     }
@@ -387,8 +394,9 @@ public class InvoiceQueries {
                     suppliers.add(new Supplier(supplierName, supplierAddress));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         return suppliers;
     }
@@ -507,7 +515,7 @@ public class InvoiceQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
@@ -515,8 +523,9 @@ public class InvoiceQueries {
                     items.add(new InvoiceTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         return items;
     }
@@ -532,7 +541,7 @@ public class InvoiceQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
@@ -540,8 +549,9 @@ public class InvoiceQueries {
                     items.add(new InvoiceTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         return items;
     }
@@ -557,7 +567,7 @@ public class InvoiceQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
@@ -565,8 +575,9 @@ public class InvoiceQueries {
                     items.add(new InvoiceTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         return items;
     }
@@ -581,7 +592,7 @@ public class InvoiceQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
@@ -589,8 +600,9 @@ public class InvoiceQueries {
                     items.add(new InvoiceTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("exeption");
         }
         return items;
     }

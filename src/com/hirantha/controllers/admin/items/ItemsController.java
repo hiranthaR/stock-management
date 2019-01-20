@@ -1,8 +1,12 @@
 package com.hirantha.controllers.admin.items;
 
 import animatefx.animation.FadeIn;
+import com.hirantha.admins.CurrentAdmin;
+import com.hirantha.admins.Permissions;
+import com.hirantha.controllers.admin.admins.AdminsController;
 import com.hirantha.quries.items.ItemQueries;
 import com.hirantha.fxmls.FXMLS;
+import com.hirantha.models.data.admins.Admin;
 import com.hirantha.models.data.item.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +25,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 public class ItemsController implements Initializable {
 
@@ -30,6 +36,9 @@ public class ItemsController implements Initializable {
     @FXML
     private Button btnNewItem;
 
+    @FXML
+    private Label btnReload;
+    
     @FXML
     private VBox rowsContainer;
 
@@ -111,6 +120,14 @@ public class ItemsController implements Initializable {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+        
+        btnReload.setOnMouseClicked(e -> {
+            try {
+                readRows();
+            } catch (IOException ex) {
+                Logger.getLogger(AdminsController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 

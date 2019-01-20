@@ -1,5 +1,6 @@
 package com.hirantha.controllers.admin.financial;
 
+import com.hirantha.controllers.admin.admins.AdminsController;
 import com.hirantha.controllers.admin.income.InvoiceFullViewController;
 import com.hirantha.controllers.admin.outgoing.OutGoingInvoiceFullViewController;
 import com.hirantha.fxmls.FXMLS;
@@ -17,11 +18,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -80,6 +84,9 @@ public class FinancialController implements Initializable {
 
     @FXML
     private Label lblIn;
+
+    @FXML
+    private Label btnReload;
 
     @FXML
     private Label lblBalance;
@@ -145,6 +152,10 @@ public class FinancialController implements Initializable {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
                 showOutgoingDetails((Bill)tableOut.getSelectionModel().getSelectedItem());
             }
+        });
+        
+        btnReload.setOnMouseClicked(e -> {
+            readRows();
         });
     }
     

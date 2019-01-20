@@ -2,11 +2,13 @@ package com.hirantha.controllers.admin.stock;
 
 import com.hirantha.admins.CurrentAdmin;
 import com.hirantha.admins.Permissions;
+import com.hirantha.controllers.admin.admins.AdminsController;
 import com.hirantha.models.data.item.BillTableItem;
 import com.hirantha.quries.invoice.InvoiceQueries;
 import com.hirantha.models.data.item.InvoiceTableItem;
 import com.hirantha.models.data.item.StockItem;
 import com.hirantha.quries.outgoing.OutgoingQueries;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -14,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StocksController implements Initializable {
 
@@ -43,10 +47,16 @@ public class StocksController implements Initializable {
     Map<String, StockItem> stockItemMap = new HashMap<>();
     Map<String, StockItem> tempStockItemMap = new HashMap<>();
 
+    @FXML
+    private Label btnReload;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        btnReload.setOnMouseClicked(e -> {
+            setStockData();
+        });
+        
         instance = this;
 
         //table configurations

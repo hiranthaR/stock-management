@@ -1,5 +1,8 @@
 package com.hirantha.controllers.admin.items;
 
+import com.hirantha.admins.CurrentAdmin;
+import com.hirantha.admins.Permissions;
+import com.hirantha.models.data.admins.Admin;
 import com.hirantha.quries.items.ItemQueries;
 import com.hirantha.models.data.item.Item;
 import javafx.fxml.FXML;
@@ -11,6 +14,7 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.layout.HBox;
 
 public class ItemsFullViewController implements Initializable {
 
@@ -52,6 +56,10 @@ public class ItemsFullViewController implements Initializable {
 
     private ItemsController itemsController;
     private Item item;
+    
+     @FXML
+    private HBox rowReceiptPrice;
+
 
 
     @FXML
@@ -71,6 +79,14 @@ public class ItemsFullViewController implements Initializable {
                 }
             }
         });
+        
+        if(!Permissions.getRole(CurrentAdmin.getInstance().getCurrentAdmin().getLevel()).equals(Admin.ROLE_ADMIN)){
+            rowReceiptPrice.setManaged(false);
+            rowReceiptPrice.setVisible(false);
+        } else {
+            rowReceiptPrice.setManaged(true);
+            rowReceiptPrice.setVisible(true);     
+        }
     }
 
     public void init(Item item) {

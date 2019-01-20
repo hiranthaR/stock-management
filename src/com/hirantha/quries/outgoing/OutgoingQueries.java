@@ -10,7 +10,6 @@ import com.hirantha.quries.items.ItemQueries;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,7 +68,7 @@ public class OutgoingQueries {
                 bill.set_id(String.valueOf(resultSet.getInt(1)));
             }
             insertTableItems(bill);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         insertFBill(bill);
@@ -97,7 +96,7 @@ public class OutgoingQueries {
                 bill.set_id(String.valueOf(resultSet.getInt(1)));
             }
             insertFTableItems(bill);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -184,7 +183,7 @@ public class OutgoingQueries {
             PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query.toString());
             preparedStatement.setDate(1, new java.sql.Date(bill.getDate().getTime()));
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         updateFInvoice(bill);
@@ -235,7 +234,7 @@ public class OutgoingQueries {
             PreparedStatement preparedStatement = FDBConnection.getConnection().prepareStatement(query.toString());
             preparedStatement.setDate(1, new java.sql.Date(bill.getDate().getTime()));
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -345,17 +344,17 @@ public class OutgoingQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
                     double costPerItem = resultSet.getInt(COST_PER_ITEM);
                     double discount = resultSet.getInt(DISCOUNT);
                     boolean percentage = resultSet.getBoolean(PERCENTAGE);
-                    items.add(new BillTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem, discount, percentage));
+                    items.add(new BillTableItem(itemId, name, unit, quantity, costPerItem, discount, percentage));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return items;
@@ -373,17 +372,17 @@ public class OutgoingQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
                     double costPerItem = resultSet.getInt(COST_PER_ITEM);
                     double discount = resultSet.getInt(DISCOUNT);
                     boolean percentage = resultSet.getBoolean(PERCENTAGE);
-                    items.add(new BillTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem, discount, percentage));
+                    items.add(new BillTableItem(itemId, name, unit, quantity, costPerItem, discount, percentage));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return items;
@@ -398,17 +397,17 @@ public class OutgoingQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
                     double costPerItem = resultSet.getInt(COST_PER_ITEM);
                     double discount = resultSet.getInt(DISCOUNT);
                     boolean percentage = resultSet.getBoolean(PERCENTAGE);
-                    items.add(new BillTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem, discount, percentage));
+                    items.add(new BillTableItem(itemId, name, unit, quantity, costPerItem, discount, percentage));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return items;
@@ -424,17 +423,17 @@ public class OutgoingQueries {
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    int itemId = resultSet.getInt(ITEM_ID);
+                    String itemId = resultSet.getString(ITEM_ID);
                     String name = resultSet.getString(ItemQueries.NAME);
                     String unit = resultSet.getString(ItemQueries.UNIT);
                     int quantity = resultSet.getInt(ITEM_QUANTITY);
                     double costPerItem = resultSet.getInt(COST_PER_ITEM);
                     double discount = resultSet.getInt(DISCOUNT);
                     boolean percentage = resultSet.getBoolean(PERCENTAGE);
-                    items.add(new BillTableItem(String.valueOf(itemId), name, unit, quantity, costPerItem, discount, percentage));
+                    items.add(new BillTableItem(itemId, name, unit, quantity, costPerItem, discount, percentage));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return items;

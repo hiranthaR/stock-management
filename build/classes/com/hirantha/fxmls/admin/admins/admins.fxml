@@ -64,6 +64,12 @@
                         <String fx:value="new-customer-buttons" />
                     </styleClass>
                 </Label>
+            <Label fx:id="btnRelaod" alignment="CENTER" contentDisplay="CENTER" layoutX="632.0" layoutY="14.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Reload">
+               <styleClass>
+                  <String fx:value="save" />
+                  <String fx:value="new-customer-buttons" />
+               </styleClass>
+            </Label>
             </children>
         </AnchorPane>
     </children>

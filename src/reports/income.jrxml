@@ -68,7 +68,7 @@
 		<queryString>
 			<![CDATA[SELECT *,(quantity*cost_per_item) as cost FROM inovice_items iit INNER JOIN items it ON iit.item_id=it.item_id WHERE iit.invoice_id=$P{invoice_id};]]>
 		</queryString>
-		<field name="item_id" class="java.lang.Integer">
+		<field name="item_id" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="invoice_id" class="java.lang.Integer">
@@ -77,7 +77,7 @@
 		<field name="quantity" class="java.lang.Integer">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="cost_per_item" class="java.lang.Double">
+		<field name="cost_per_item" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="item_name" class="java.lang.String">
@@ -89,28 +89,31 @@
 		<field name="unit" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="receipt_price" class="java.lang.Double">
+		<field name="receipt_price" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="marked_price" class="java.lang.Double">
+		<field name="marked_price" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="selling_price" class="java.lang.Double">
+		<field name="selling_price" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="percentage_flag" class="java.lang.Boolean">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="rank1" class="java.lang.Double">
+		<field name="rank1" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="rank2" class="java.lang.Double">
+		<field name="rank2" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="rank3" class="java.lang.Double">
+		<field name="rank3" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="cost" class="java.lang.Double"/>
+		<field name="delete_flag" class="java.lang.Boolean">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="cost" class="java.math.BigDecimal"/>
 	</subDataset>
 	<parameter name="invoice_id" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -133,7 +136,7 @@
 	<field name="supplier_invoice_number" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_bill_cost" class="java.lang.Double">
+	<field name="total_bill_cost" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="cash_flag" class="java.lang.Boolean">
@@ -151,25 +154,28 @@
 	<field name="pan" class="java.lang.String"/>
 	<field name="aan" class="java.lang.String"/>
 	<field name="can" class="java.lang.String"/>
+	<field name="cheque_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="bank" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="branch" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="amount" class="java.lang.Double">
+	<field name="amount" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="cheque_date" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="item_id" class="java.lang.Integer">
+	<field name="item_id" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="quantity" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="cost_per_item" class="java.lang.Double">
+	<field name="cost_per_item" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -182,7 +188,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dehannegama Hardware]]></text>
+				<text><![CDATA[Dehennegama Hardware]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="27" width="381" height="20" uuid="dbe822f0-5844-4690-8fe5-23388638abf5"/>

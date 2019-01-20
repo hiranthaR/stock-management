@@ -64,6 +64,12 @@
                     </styleClass>
                 </Label>
                 <AnchorPane fx:id="profileContainer" layoutX="365.0" layoutY="65.0" prefHeight="580.0" prefWidth="465.0" />
+            <Label fx:id="btnReload" alignment="CENTER" contentDisplay="CENTER" layoutX="629.0" layoutY="14.0" stylesheets="@../../../css/admin/dashboard/customers/new_customer.css" text="Reload">
+               <styleClass>
+                  <String fx:value="save" />
+                  <String fx:value="new-customer-buttons" />
+               </styleClass>
+            </Label>
             </children>
         </AnchorPane>
     </children>

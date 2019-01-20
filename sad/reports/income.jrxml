@@ -197,7 +197,7 @@
 			</staticText>
 			<image>
 				<reportElement x="12" y="0" width="64" height="56" uuid="853140b2-84e3-412f-bdce-175abd964bba"/>
-				<imageExpression><![CDATA["/home/hiruu/NetBeansProjects/Stock-app/src/reports/Logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["D:/dist/reports/Logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

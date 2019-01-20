@@ -7,7 +7,7 @@ public class DBConnection {
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 //    private static final String DB_URL = "jdbc:mysql://192.168.8.150:3307/stockdb";
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/stock-db";
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/stockdb";
 
     private static final String USERNAME = "root";
     private static final String PASSWORD = "123";

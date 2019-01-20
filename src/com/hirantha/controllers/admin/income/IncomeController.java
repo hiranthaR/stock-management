@@ -3,6 +3,7 @@ package com.hirantha.controllers.admin.income;
 import animatefx.animation.FadeIn;
 import com.hirantha.admins.CurrentAdmin;
 import com.hirantha.admins.Permissions;
+import com.hirantha.controllers.admin.admins.AdminsController;
 import com.hirantha.quries.invoice.InvoiceQueries;
 import com.hirantha.fxmls.FXMLS;
 import com.hirantha.models.data.invoice.Invoice;
@@ -21,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IncomeController implements Initializable {
 
@@ -41,6 +44,9 @@ public class IncomeController implements Initializable {
 
     @FXML
     private Label btnNewInvoice;
+
+    @FXML
+    private Label btnReload;
 
     private List<Invoice> invoices;
     //TODO:Implement search
@@ -104,6 +110,13 @@ public class IncomeController implements Initializable {
         }
 
         btnNewInvoice.setOnMouseClicked(e -> showNewItemView());
+        btnReload.setOnMouseClicked(e -> {
+            try {
+                readRows();
+            } catch (IOException ex) {
+                Logger.getLogger(AdminsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
     }
 

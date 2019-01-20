@@ -137,7 +137,7 @@
                                 <Insets top="5.0" />
                             </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT">
+                        <HBox fx:id="rowReceiptPrice" alignment="CENTER_LEFT">
                             <children>
                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

@@ -83,9 +83,9 @@ public class LoginController implements Initializable {
             txtUsername.requestFocus();
 
 //            temporary pass the login
-            txtUsername.setText("rrrrr");
-            txtPassword.setText("12345");
-            login();
+//            txtUsername.setText("rrrrr");
+//            txtPassword.setText("12345");
+//            login();
 
 
         });

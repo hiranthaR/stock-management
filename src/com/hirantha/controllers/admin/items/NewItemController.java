@@ -36,7 +36,7 @@ public class NewItemController implements Initializable {
 
     @FXML
     private TextField txtMarkPrice;
-    
+
     @FXML
     private TextField txtItemCode;
 
@@ -51,7 +51,6 @@ public class NewItemController implements Initializable {
 
     @FXML
     private RadioButton radioPercentage;
-
 
     @FXML
     private TextField txtDiscountRank1;
@@ -71,14 +70,12 @@ public class NewItemController implements Initializable {
     @FXML
     private Label lblDiscount3;
 
-
     @FXML
     private Label btnSave;
 
     private ItemsController itemsController;
     private Item item;
     private boolean goingToUpdate = false;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -142,8 +139,9 @@ public class NewItemController implements Initializable {
 //        });
 
         cmbUnit.getEditor().setOnKeyTyped(e -> {
-            if (!(Character.isAlphabetic(e.getCharacter().charAt(0))))
+            if (!(Character.isAlphabetic(e.getCharacter().charAt(0)))) {
                 e.consume();
+            }
         });
 
         txtItemName.textProperty().addListener((observableValue, s, t1) -> txtItemName.setText(WordUtils.capitalize(t1)));
@@ -172,7 +170,7 @@ public class NewItemController implements Initializable {
         btnSave.setOnMouseClicked(e -> {
             if (valid()) {
                 if (goingToUpdate) {
-                    ItemQueries.getInstance().updateItem(item,createItem());
+                    ItemQueries.getInstance().updateItem(item, createItem());
                     goingToUpdate = false;
                 } else {
                     ItemQueries.getInstance().insertItem(createItem());
@@ -212,8 +210,7 @@ public class NewItemController implements Initializable {
         String id;
 //        if (goingToUpdate) id = item.getItemCode();
 //        else 
-            id = txtItemCode.getText();
-
+        id = txtItemCode.getText();
 
         return new Item(id, name, category, unit, receiptPrice, markedPrice, sellingPrice, percentage, discountRank1, discountRank2, discountRank3);
     }
@@ -222,17 +219,18 @@ public class NewItemController implements Initializable {
 
         boolean status = true;
 
+        if (!goingToUpdate) {
+            if (ItemQueries.getInstance().isItemCodeAvailable(txtItemCode.getText())) {
+                new Alert(Alert.AlertType.ERROR, "Item Code is Already in database!").showAndWait();
+                return false;
+            }
+        }
+
         if (txtItemCode.getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Item Code is empty!").showAndWait();
             return false;
         }
-        
-        
-        if (txtItemCode.getText().isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Item Code is empty!").showAndWait();
-            return false;
-        }
-        
+
         if (cmbCategory.getEditor().getText().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Category is empty!").showAndWait();
             return false;
@@ -333,8 +331,8 @@ public class NewItemController implements Initializable {
         txtDiscountRank2.setText(String.valueOf(item.getRank2()));
         txtDiscountRank3.setText(String.valueOf(item.getRank3()));
     }
-    
-    public void hidePanel(){
+
+    public void hidePanel() {
         btnCancel.setVisible(false);
     }
 }

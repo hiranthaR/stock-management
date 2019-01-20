@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Button;
 
 public class AdminsController implements Initializable {
 
@@ -35,6 +38,9 @@ public class AdminsController implements Initializable {
 
     @FXML
     private Label btnNewAdmin;
+   
+    @FXML
+    private Label btnRelaod;
 
     private NewAdminController newAdminController;
     private AnchorPane newAdminPane;
@@ -72,6 +78,13 @@ public class AdminsController implements Initializable {
 
 
         btnNewAdmin.setOnMouseClicked(e -> showNewCustomer());
+        btnRelaod.setOnMouseClicked(e -> {
+            try {
+                readRows();
+            } catch (IOException ex) {
+                Logger.getLogger(AdminsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
     }
 

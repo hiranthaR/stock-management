@@ -3,6 +3,7 @@ package com.hirantha.controllers.admin.outgoing;
 import animatefx.animation.FadeIn;
 import com.hirantha.admins.CurrentAdmin;
 import com.hirantha.admins.Permissions;
+import com.hirantha.controllers.admin.admins.AdminsController;
 import com.hirantha.quries.outgoing.OutgoingQueries;
 import com.hirantha.fxmls.FXMLS;
 import com.hirantha.models.data.outgoing.Bill;
@@ -48,6 +49,9 @@ public class OutGoingController implements Initializable {
     @FXML
     private Label btnNewInvoice;
 
+    @FXML
+    private Label btnReload;
+
     private List<Bill> bills;
 
     //TODO: implement search
@@ -62,6 +66,14 @@ public class OutGoingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        btnReload.setOnMouseClicked(e -> {
+            try {
+                readRows();
+            } catch (IOException ex) {
+                Logger.getLogger(AdminsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         cmbSearch.getItems().addAll("Search by customer name", "Search by company Invoice Id");
         cmbSearch.valueProperty().addListener((observableValue, s, t1) -> {
             txtSearch.setPromptText(t1);

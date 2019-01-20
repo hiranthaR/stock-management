@@ -2,6 +2,7 @@ package com.hirantha.controllers.admin.customers;
 
 import animatefx.animation.FadeIn;
 import com.hirantha.controllers.admin.DashboardController;
+import com.hirantha.controllers.admin.admins.AdminsController;
 import com.hirantha.quries.customers.CustomerQueries;
 import com.hirantha.fxmls.FXMLS;
 import com.hirantha.models.data.customer.Customer;
@@ -19,6 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CustomerController implements Initializable {
 
@@ -36,6 +39,9 @@ public class CustomerController implements Initializable {
 
     @FXML
     private Label btnNewCustomer;
+
+    @FXML
+    private Label btnReload;
 
     private List<Customer> customers;
     List<Customer> temp = new ArrayList<>();
@@ -83,6 +89,13 @@ public class CustomerController implements Initializable {
         });
 
         btnNewCustomer.setOnMouseClicked(e -> showNewCustomer());
+        btnReload.setOnMouseClicked(e -> {
+            try {
+                readRows();
+            } catch (IOException ex) {
+                Logger.getLogger(AdminsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     List<Customer> readRows() throws IOException {

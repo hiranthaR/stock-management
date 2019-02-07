@@ -20,7 +20,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Button;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 public class AdminsController implements Initializable {
 
@@ -38,6 +42,19 @@ public class AdminsController implements Initializable {
 
     @FXML
     private Label btnNewAdmin;
+    
+    @FXML
+    private TableView<Admin> tableAdmins;
+
+    @FXML
+    private TableColumn<Admin, String> clmnName;
+
+    @FXML
+    private TableColumn<Admin, String> clmnUsername;
+
+    @FXML
+    private TableColumn<Admin, String> clmnRole;
+
    
     @FXML
     private Label btnRelaod;
@@ -55,6 +72,20 @@ public class AdminsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        clmnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        clmnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        tableAdmins.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton() == MouseButton.PRIMARY ){
+                    adminProfileController.init(tableAdmins.getSelectionModel().getSelectedItem());
+                }
+            }
+            
+        });
+        
         try {
             //load and get the controller for profile showing pane
             FXMLLoader profileFxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Admins.ADMIN_PROFILE));
@@ -97,13 +128,16 @@ public class AdminsController implements Initializable {
     }
 
     private void setRowViews(List<Admin> admins) throws IOException {
-        rowsContainer.getChildren().clear();
-        for (Admin admin : admins) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Admins.ADMIN_ROW));
-            AnchorPane row = fxmlLoader.load();
-            fxmlLoader.<AdminRowController>getController().init(admin, adminProfileController);
-            rowsContainer.getChildren().add(row);
-        }
+//        rowsContainer.getChildren().clear();
+//        for (Admin admin : admins) {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Admins.ADMIN_ROW));
+//            AnchorPane row = fxmlLoader.load();
+//            fxmlLoader.<AdminRowController>getController().init(admin, adminProfileController);
+//            rowsContainer.getChildren().add(row);
+//        }
+
+        tableAdmins.getItems().clear();
+        tableAdmins.getItems().addAll(admins);
 
         if (admins.size() == 0) {
             profileContainer.getChildren().clear();

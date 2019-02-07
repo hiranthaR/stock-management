@@ -21,10 +21,17 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 public class OutGoingController implements Initializable {
 
@@ -51,6 +58,21 @@ public class OutGoingController implements Initializable {
 
     @FXML
     private Label btnReload;
+    
+       @FXML
+    private TableView<Bill> tableOutgoing;
+
+    @FXML
+    private TableColumn<Bill, String> clmnId;
+
+    @FXML
+    private TableColumn<Bill, String> clmnName;
+
+    @FXML
+    private TableColumn<Bill, Date> clmnDate;
+
+    @FXML
+    private TableColumn<Bill, Double> clmnAmount;
 
     private List<Bill> bills;
 
@@ -66,6 +88,20 @@ public class OutGoingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        clmnId.setCellValueFactory(new PropertyValueFactory<>("_id"));
+        clmnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        clmnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clmnAmount.setCellValueFactory(new PropertyValueFactory<>("totalBillCost"));
+        
+           tableOutgoing.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton() == MouseButton.PRIMARY ){
+                    outGoingInvoiceFullViewController.init(tableOutgoing.getSelectionModel().getSelectedItem());
+                }
+            }
+            
+        });
         btnReload.setOnMouseClicked(e -> {
             try {
                 readRows();
@@ -147,15 +183,18 @@ public class OutGoingController implements Initializable {
     }
 
     private void setRowViews(List<Bill> bills) throws IOException {
-        rowsContainer.getChildren().clear();
-        for (Bill bill : bills) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Outgoing.BILL_ROW));
-            AnchorPane row = fxmlLoader.load();
-            fxmlLoader.<OutGoingInvoiceRowController>getController().init(bill, outGoingInvoiceFullViewController);
-            rowsContainer.getChildren().add(row);
-        }
+//        rowsContainer.getChildren().clear();
+//        for (Bill bill : bills) {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Outgoing.BILL_ROW));
+//            AnchorPane row = fxmlLoader.load();
+//            fxmlLoader.<OutGoingInvoiceRowController>getController().init(bill, outGoingInvoiceFullViewController);
+//            rowsContainer.getChildren().add(row);
+//        }
 
-        if (bills.size() == 0) {
+        tableOutgoing.getItems().clear();
+        tableOutgoing.getItems().addAll(bills);
+
+        if (bills.isEmpty()) {
             invoiceContainer.getChildren().clear();
         } else {
             invoiceContainer.getChildren().clear();

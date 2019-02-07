@@ -112,6 +112,7 @@ public class OutGoingInvoiceFullViewController implements Initializable {
     }
 
     public void init(Bill bill) {
+        showPanel();
         this.bill = bill;
         tvInvoiceNumber.setText(bill.get_id());
         tvDate.setText(simpleDateFormat.format(bill.getDate()));

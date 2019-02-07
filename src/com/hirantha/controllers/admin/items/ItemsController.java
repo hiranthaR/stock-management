@@ -24,8 +24,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class ItemsController implements Initializable {
@@ -59,6 +65,18 @@ public class ItemsController implements Initializable {
 
     @FXML
     private ComboBox<String> cmbSearch;
+    
+    @FXML
+    private TableView<Item> tableItems;
+
+    @FXML
+    private TableColumn<Item, String> clmnCode;
+
+    @FXML
+    private TableColumn<Item, String> clmnName;
+
+    @FXML
+    private TableColumn<Item, String> clmnCategory;
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,6 +101,21 @@ public class ItemsController implements Initializable {
         }
 
         btnNewItem.setOnMouseClicked(e -> showNewItemView());
+        
+        clmnCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        clmnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clmnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+         tableItems.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton() == MouseButton.PRIMARY ){
+                    itemsFullViewController.init(tableItems.getSelectionModel().getSelectedItem());
+                }
+            }
+            
+        });
+         
 
         cmbSearch.getItems().addAll("Search by Item name", "Search by Item Category");
         cmbSearch.valueProperty().addListener((observableValue, s, t1) -> {
@@ -142,13 +175,16 @@ public class ItemsController implements Initializable {
     }
 
     private void setRowViews(List<Item> items) throws IOException {
-        rowsContainer.getChildren().clear();
-        for (Item item : items) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Items.ITEM_ROW));
-            AnchorPane row = fxmlLoader.load();
-            fxmlLoader.<ItemRowController>getController().init(item, itemsFullViewController);
-            rowsContainer.getChildren().add(row);
-        }
+//        rowsContainer.getChildren().clear();
+//        for (Item item : items) {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Items.ITEM_ROW));
+//            AnchorPane row = fxmlLoader.load();
+//            fxmlLoader.<ItemRowController>getController().init(item, itemsFullViewController);
+//            rowsContainer.getChildren().add(row);
+//        }
+
+        tableItems.getItems().clear();
+        tableItems.getItems().addAll(items);
 
         if (items.size() == 0) {
             itemContainer.getChildren().clear();

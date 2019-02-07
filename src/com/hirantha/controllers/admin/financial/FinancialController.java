@@ -228,6 +228,7 @@ public class FinancialController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             OutGoingInvoiceFullViewController controller = fxmlLoader.getController();
             controller.init(bill);
+            controller.hidePanel();
             Stage stage = new Stage();
             stage.setTitle(bill.getCustomerName()+ " @ " + sdf.format(bill.getDate()));
             stage.setScene(new Scene(root1));

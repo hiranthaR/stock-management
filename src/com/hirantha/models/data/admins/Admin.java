@@ -1,5 +1,6 @@
 package com.hirantha.models.data.admins;
 
+import com.hirantha.admins.Permissions;
 import org.bson.types.ObjectId;
 
 public class Admin {
@@ -22,21 +23,9 @@ public class Admin {
         this.password = password;
         this.level = level;
     }
-
-    public static String getRoleAdmin() {
-        return ROLE_ADMIN;
-    }
-
-    public static String getRoleInput() {
-        return ROLE_INPUT;
-    }
-
-    public static String getRoleOutput() {
-        return ROLE_OUTPUT;
-    }
-
-    public static String getRoleInputOutput() {
-        return ROLE_INPUT_OUTPUT;
+    
+    public String getRole(){
+        return Permissions.getRole(getLevel());
     }
 
     public String getId() {

@@ -20,10 +20,17 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 public class IncomeController implements Initializable {
 
@@ -44,6 +51,22 @@ public class IncomeController implements Initializable {
 
     @FXML
     private Label btnNewInvoice;
+    
+    
+    @FXML
+    private TableView<Invoice> tableIncome;
+
+    @FXML
+    private TableColumn<Invoice, String> clmnId;
+
+    @FXML
+    private TableColumn<Invoice, String> clmnName;
+
+    @FXML
+    private TableColumn<Invoice, Date> clmnDate;
+
+    @FXML
+    private TableColumn<Invoice, String> clmnInvoiceNo;
 
     @FXML
     private Label btnReload;
@@ -61,6 +84,21 @@ public class IncomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        clmnId.setCellValueFactory(new PropertyValueFactory<>("_id"));
+        clmnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clmnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmnInvoiceNo.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
+        
+           tableIncome.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton() == MouseButton.PRIMARY ){
+                    invoiceFullViewController.init(tableIncome.getSelectionModel().getSelectedItem());
+                }
+            }
+            
+        });
+        
         cmbSearch.getItems().addAll("Search by supplier name", "Search by supplier invoice Id","Search by company Invoice Id");
         cmbSearch.valueProperty().addListener((observableValue, s, t1) -> {
             txtSearch.setPromptText(t1);
@@ -129,13 +167,16 @@ public class IncomeController implements Initializable {
     }
 
     private void setRowViews(List<Invoice> invoices) throws IOException {
-        rowsContainer.getChildren().clear();
-        for (Invoice invoice : invoices) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Income.INVOICE_ROW));
-            AnchorPane row = fxmlLoader.load();
-            fxmlLoader.<InvoiceRowController>getController().init(invoice, invoiceFullViewController);
-            rowsContainer.getChildren().add(row);
-        }
+//        rowsContainer.getChildren().clear();
+//        for (Invoice invoice : invoices) {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Income.INVOICE_ROW));
+//            AnchorPane row = fxmlLoader.load();
+//            fxmlLoader.<InvoiceRowController>getController().init(invoice, invoiceFullViewController);
+//            rowsContainer.getChildren().add(row);
+//        }
+
+        tableIncome.getItems().clear();
+        tableIncome.getItems().addAll(invoices);
 
         if (invoices.size() == 0) {
             invoiceContainer.getChildren().clear();

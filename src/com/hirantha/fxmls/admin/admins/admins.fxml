@@ -3,32 +3,19 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="basePane" prefHeight="675.0" prefWidth="850.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hirantha.controllers.admin.admins.AdminsController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #cecece;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ScrollPane fx:id="customerRowScrollPane" hbarPolicy="NEVER" layoutX="30.0" layoutY="65.0" stylesheets="@../../../css/admin/dashboard/customers/customers.css" vbarPolicy="NEVER">
-                    <content>
-                        <VBox fx:id="rowsContainer" alignment="TOP_CENTER" prefHeight="580.0" prefWidth="304.0" spacing="8.0">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" top="5.0" />
-                            </padding>
-                        </VBox>
-                    </content>
-                    <styleClass>
-                        <String fx:value="scroll-pane" />
-                        <String fx:value="viewport" />
-                    </styleClass>
-                </ScrollPane>
                 <AnchorPane fx:id="profileContainer" layoutX="365.0" layoutY="65.0" prefHeight="580.0" prefWidth="465.0" />
                 <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="11.0" prefHeight="32.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5px;">
                     <children>
@@ -70,6 +57,13 @@
                   <String fx:value="new-customer-buttons" />
                </styleClass>
             </Label>
+            <TableView fx:id="tableAdmins" layoutX="30.0" layoutY="65.0" prefHeight="580.0" prefWidth="331.0" stylesheets="@../../../css/admin/dashboard/tablecss.css">
+              <columns>
+                <TableColumn fx:id="clmnName" prefWidth="129.0" resizable="false" text="Name" />
+                <TableColumn fx:id="clmnUsername" prefWidth="87.0" resizable="false" text="Username" />
+                  <TableColumn fx:id="clmnRole" prefWidth="114.0" resizable="false" text="Role" />
+              </columns>
+            </TableView>
             </children>
         </AnchorPane>
     </children>

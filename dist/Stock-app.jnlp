@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Stock-app.jar" size="922665" download="eager" />
+    <jar href="Stock-app.jar" size="942744" download="eager" />
     <jar href="lib/AnimateFX-1.2.0.jar" size="85823" download="eager" />
     <jar href="lib/ant-1.7.1.jar" size="1323005" download="eager" />
     <jar href="lib/antlr-2.7.6.jar" size="443432" download="eager" />
@@ -102,7 +102,7 @@
     <jar href="lib/log4j-1.2.15.jar" size="391834" download="eager" />
     <jar href="lib/mondrian-3.2.0-13661-JS.jar" size="2823019" download="eager" />
     <jar href="lib/mongo-java-driver-3.8.2.jar" size="2037808" download="eager" />
-    <jar href="lib/mysql-connector-java-8.0.13.jar" size="2132635" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.6.jar" size="703265" download="eager" />
     <jar href="lib/olap4j-0.9.7.309-JS.jar" size="445406" download="eager" />
     <jar href="lib/openjfx-dialogs-1.0.3.jar" size="149178" download="eager" />
     <jar href="lib/png-encoder-1.5.jar" size="10266" download="eager" />

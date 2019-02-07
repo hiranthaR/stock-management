@@ -1,8 +1,10 @@
 package com.hirantha.models.data.customer;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Customer {
 
-    private String _id;
+    private SimpleStringProperty id;
     private String image_url;
     private String title;
     private String name;
@@ -14,9 +16,9 @@ public class Customer {
     public static String manUrl = "/com/hirantha/icons/man.png";
 
 
-    public Customer(String _id, boolean man, String title, String name, String address, String telephone, int rank) {
+    public Customer(String id, boolean man, String title, String name, String address, String telephone, int rank) {
 
-        this._id = _id;
+        this.id = new SimpleStringProperty(id);
         this.image_url = man ? manUrl : womanUrl;
         this.title = title;
         this.name = name;
@@ -26,11 +28,11 @@ public class Customer {
     }
 
     public String getId() {
-        return _id;
+        return id.get();
     }
 
     public void setId(String _id) {
-        this._id = _id;
+        this.id.set(_id);
     }
 
     public String getImageUrl() {
@@ -85,7 +87,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "_id='" + _id + '\'' +
+                "_id='" + id + '\'' +
                 ", image_url='" + image_url + '\'' +
                 ", title='" + title + '\'' +
                 ", name='" + name + '\'' +

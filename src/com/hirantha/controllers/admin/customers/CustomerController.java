@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 public class CustomerController implements Initializable {
 
@@ -45,6 +50,20 @@ public class CustomerController implements Initializable {
 
     private List<Customer> customers;
     List<Customer> temp = new ArrayList<>();
+    
+    
+    @FXML
+    private TableView<Customer> tableCustomer;
+
+    @FXML
+    private TableColumn<Customer, String> clmnId;
+
+    @FXML
+    private TableColumn<Customer, String> clmnName;
+
+    @FXML
+    private TableColumn<Customer, Integer> clmnRank;
+
 
     private AnchorPane newCustomerPane;
     private AnchorPane profilePane;
@@ -75,6 +94,20 @@ public class CustomerController implements Initializable {
             e1.printStackTrace();
         }
 
+        clmnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmnRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        
+        tableCustomer.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton() == MouseButton.PRIMARY ){
+                    customerProfileController.init(tableCustomer.getSelectionModel().getSelectedItem());
+                }
+            }
+            
+        });
+        
         txtSearch.setOnKeyReleased(keyEvent -> {
 
             temp.clear();
@@ -107,15 +140,18 @@ public class CustomerController implements Initializable {
     }
 
     private void setRowViews(List<Customer> customers) throws IOException {
-        rowsContainer.getChildren().clear();
-        for (Customer customer : customers) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Customers.CUSTOMER_ROW));
-            AnchorPane row = fxmlLoader.load();
-            fxmlLoader.<CustomerRowController>getController().init(customer, customerProfileController);
-            rowsContainer.getChildren().add(row);
-        }
+//        rowsContainer.getChildren().clear();
+//        for (Customer customer : customers) {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLS.Admin.Customers.CUSTOMER_ROW));
+//            AnchorPane row = fxmlLoader.load();
+//            fxmlLoader.<CustomerRowController>getController().init(customer, customerProfileController);
+//            rowsContainer.getChildren().add(row);
+//        }
 
-        if (customers.size() == 0) {
+        tableCustomer.getItems().clear();
+        tableCustomer.getItems().addAll(customers);
+
+        if (customers.isEmpty()) {
             profileContainer.getChildren().clear();
         } else {
             profileContainer.getChildren().clear();
